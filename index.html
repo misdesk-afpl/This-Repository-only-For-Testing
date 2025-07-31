@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Air Flow Pvt. Ltd. Comprehension Test</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f8f9fa;
+      padding: 20px;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: #fff;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+    h2 {
+      margin-bottom: 10px;
+    }
+    input[type="text"], input[type="email"] {
+      padding: 10px;
+      width: 100%;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    .btn {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background-color: #0056b3;
+    }
+    .question {
+      margin: 20px 0;
+    }
+    .options label {
+      display: block;
+      margin-bottom: 8px;
+    }
+    .hidden {
+      display: none;
+    }
+    #timer {
+      font-weight: bold;
+      color: red;
+      float: right;
+    }
+    canvas {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Login Page -->
+    <div id="loginPage">
+      <h2>Comprehension Test Login</h2>
+      <input type="text" id="name" placeholder="Enter your name" required />
+      <input type="email" id="email" placeholder="Enter your email" required />
+      <button class="btn" onclick="startTest()">Start Test</button>
+      <p id="errorMsg" style="color:red; display:none;">Please fill in both fields.</p>
+    </div>
+
+    <!-- Test Page -->
+    <div id="testPage" class="hidden">
+      <h2>Comprehension Passage <span id="timer">Time: 03:00</span></h2>
+      <p id="passageText"></p>
+      <div id="questionsContainer"></div>
+      <button class="btn" onclick="submitAnswers()">Submit Answers</button>
+    </div>
+
+    <!-- Result Page -->
+    <div id="resultPage" class="hidden">
+      <h2>Test Result</h2>
+      <p><strong>Name:</strong> <span id="resultName"></span></p>
+      <p><strong>Email:</strong> <span id="resultEmail"></span></p>
+      <p><strong>Correct Answers:</strong> <span id="correctCount"></span> out of <span id="totalQuestions"></span></p>
+      <canvas id="resultChart"></canvas>
+    </div>
+  </div>
+
+  <script>
+    const passages = [
+      {
+        text: `The Internet has revolutionized the way we communicate, learn, and work. From the early days of dial-up connections to today’s high-speed fiber optics, technology has evolved dramatically. People now access information instantly, collaborate across continents, and shop without leaving their homes. Despite its many benefits, the Internet also brings challenges such as cybercrime, misinformation, and reduced privacy. As we continue to depend on digital connectivity, it becomes increasingly important to balance its advantages with mindful usage.`,
+        questions: [
+          {
+            q: "What has the Internet revolutionized?",
+            o: ["Transportation", "Healthcare", "Communication, learning, and work", "Entertainment only"],
+            c: "Communication, learning, and work"
+          },
+          {
+            q: "What is a major challenge mentioned in relation to Internet usage?",
+            o: ["Slower access to information", "Cybercrime", "Traffic congestion", "Lack of content"],
+            c: "Cybercrime"
+          },
+          {
+            q: "What is the comparison made between early and modern Internet?",
+            o: ["From newspapers to emails", "From radio to podcasts", "From dial-up to high-speed connections", "From TV to YouTube"],
+            c: "From dial-up to high-speed connections"
+          },
+          {
+            q: "Which of these is NOT mentioned as a benefit of the Internet?",
+            o: ["Instant information access", "Online shopping", "Long-distance collaboration", "Physical health improvement"],
+            c: "Physical health improvement"
+          },
+          {
+            q: "What is suggested as necessary due to our growing digital dependence?",
+            o: ["Complete disconnection", "Avoiding social media", "Mindful usage", "Increased online gaming"],
+            c: "Mindful usage"
+          }
+        ]
+      }
+    ];
+
+    let currentPassage = null;
+    let userAnswers = [];
+    let timerInterval;
+
+    function startTest() {
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const errorMsg = document.getElementById('errorMsg');
+
+      if (!name || !email) {
+        errorMsg.style.display = 'block';
+        return;
+      }
+      errorMsg.style.display = 'none';
+
+      document.getElementById('loginPage').classList.add('hidden');
+      document.getElementById('testPage').classList.remove('hidden');
+
+      currentPassage = passages[0];
+      document.getElementById('passageText').textContent = currentPassage.text;
+
+      const questionsDiv = document.getElementById('questionsContainer');
+      questionsDiv.innerHTML = '';
+      currentPassage.questions.forEach((q, i) => {
+        const questionHTML = `
+          <div class="question">
+            <p><strong>Q${i + 1}:</strong> ${q.q}</p>
+            <div class="options">
+              ${q.o.map((option, idx) =>
+                `<label><input type="radio" name="q${i}" value="${option}"> ${option}</label>`
+              ).join('')}
+            </div>
+          </div>`;
+        questionsDiv.innerHTML += questionHTML;
+      });
+
+      startTimer(180); // 3 minutes
+    }
+
+    function startTimer(duration) {
+      let timer = duration;
+      const display = document.getElementById('timer');
+      clearInterval(timerInterval);
+
+      timerInterval = setInterval(() => {
+        const minutes = String(Math.floor(timer / 60)).padStart(2, '0');
+        const seconds = String(timer % 60).padStart(2, '0');
+        display.textContent = `Time: ${minutes}:${seconds}`;
+        if (--timer < 0) {
+          clearInterval(timerInterval);
+          submitAnswers();
+        }
+      }, 1000);
+    }
+
+    function submitAnswers() {
+      clearInterval(timerInterval);
+
+      userAnswers = [];
+      let allAnswered = true;
+      currentPassage.questions.forEach((q, i) => {
+        const selected = document.querySelector(`input[name="q${i}"]:checked`);
+        if (!selected) allAnswered = false;
+        userAnswers.push(selected ? selected.value : null);
+      });
+
+      if (!allAnswered) {
+        alert("Please answer all questions before submitting.");
+        return;
+      }
+
+      let correctCount = 0;
+      currentPassage.questions.forEach((q, i) => {
+        if (userAnswers[i] === q.c) correctCount++;
+      });
+
+      document.getElementById('testPage').classList.add('hidden');
+      document.getElementById('resultPage').classList.remove('hidden');
+      document.getElementById('resultName').textContent = document.getElementById('name').value;
+      document.getElementById('resultEmail').textContent = document.getElementById('email').value;
+      document.getElementById('correctCount').textContent = correctCount;
+      document.getElementById('totalQuestions').textContent = currentPassage.questions.length;
+
+      drawChart(correctCount, currentPassage.questions.length - correctCount);
+    }
+
+    function drawChart(correct, incorrect) {
+      const ctx = document.getElementById('resultChart').getContext('2d');
+      new Chart(ctx, {
+        type: 'pie',
+        data: {
+          labels: ['Correct', 'Incorrect'],
+          datasets: [{
+            data: [correct, incorrect],
+            backgroundColor: ['#28a745', '#dc3545']
+          }]
+        },
+        options: {
+          responsive: true
+        }
+      });
+    }
+  </script>
+</body>
+</html>
