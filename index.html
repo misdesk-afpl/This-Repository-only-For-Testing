@@ -313,7 +313,6 @@ function startTest() {
 
   const randomIndex = Math.floor(Math.random() * passages.length);
   currentPassage = passages[randomIndex];
-
   document.getElementById('paragraph').innerText = currentPassage.text;
 
   let timeLeft = 120;
@@ -349,7 +348,9 @@ function submitAnswers() {
   currentPassage.questions.forEach((q, i) => {
     const selected = document.querySelector(`input[name="q${i}"]:checked`);
     if (!selected) allAnswered = false;
-    userAnswers.push(selected ? selected.value : null)
+    userAnswers.push(selected ? selected.value : null);
+  });
+
   if (!allAnswered) {
     alert("Please answer all questions before submitting.");
     return;
@@ -365,37 +366,32 @@ function submitAnswers() {
   document.getElementById('userName').innerText = document.getElementById('name').value.trim();
   document.getElementById('userEmail').innerText = document.getElementById('email').value.trim();
 
-// ✅ Score text added here
-const totalQuestions = currentPassage.questions.length;
-const correctAnswers = score;
-const wrongAnswers = totalQuestions - correctAnswers;
+  const total = currentPassage.questions.length;
+  const correct = score;
+  const wrong = total - correct;
 
-const scoreText = `
-  Total Questions: ${totalQuestions}<br>
-  Correct Answers: ${correctAnswers}<br>
-  Wrong Answers: ${wrongAnswers}
-`;
+  const scoreText = `
+    Total Questions: ${total}<br>
+    Correct Answers: ${correct}<br>
+    Wrong Answers: ${wrong}
+  `;
 
-const scoreElement = document.createElement("p");
-scoreElement.innerHTML = `<strong>${scoreText}</strong>`;
-scoreElement.style.textAlign = "center";
-scoreElement.style.margin = "15px 0";
+  const scoreElement = document.createElement("p");
+  scoreElement.innerHTML = `<strong>${scoreText}</strong>`;
+  scoreElement.style.textAlign = "center";
+  scoreElement.style.margin = "15px 0";
+  document.getElementById('finalPage').insertBefore(scoreElement, document.getElementById('resultChart'));
 
-document.getElementById('finalPage').insertBefore(scoreElement, document.getElementById('resultChart'));
-
-  const ctx = document.getElementById('resultChart').getContext('2d');
-  new Chart(ctx, {
+  new Chart(document.getElementById('resultChart').getContext('2d'), {
     type: 'pie',
     data: {
       labels: ['Correct', 'Incorrect'],
       datasets: [{
-        data: [score, currentPassage.questions.length - score],
+        data: [correct, wrong],
         backgroundColor: ['#28a745', '#dc3545']
       }]
     },
-    options: {
-      responsive: true
-    }
+    options: { responsive: true }
   });
 
   let reviewHtml = "<h4>Review Your Answers:</h4>";
@@ -422,51 +418,41 @@ function showSuccess() {
   const wrong = total - right;
 
   const formData = new FormData();
-  formData.append('entry.1640574701', name);      // Name
-  formData.append('entry.2044946124', email);     // Email
-  formData.append('entry.645538404', total);     // Total Questions
-  formData.append('entry.895886336', right);     // Correct
-  formData.append('entry.115296724', wrong);     // Wrong
+  formData.append('entry.1640574701', name);
+  formData.append('entry.2044946124', email);
+  formData.append('entry.645538404', total);
+  formData.append('entry.895886336', right);
+  formData.append('entry.115296724', wrong);
 
   fetch('https://docs.google.com/forms/d/e/1FAIpQLSfUJDDXqcvb_mz-ceL3yxA6kFF1ds4HEwDZzugyrO0tQVaBiA/formResponse', {
     method: 'POST',
     mode: 'no-cors',
     body: formData
   });
-  
+
   document.getElementById('finalPage').style.display = 'none';
   document.getElementById('successPage').style.display = 'block';
 }
 
-
-// 🛡️ Disable right-click on passage and MCQs
-document.addEventListener('contextmenu', event => {
-  const protectedAreas = ['paragraph', 'mcqs'];
-  if (protectedAreas.includes(event.target.id) || event.target.closest('#mcqs')) {
-    event.preventDefault();
-  }
+// Disable text select, copy, inspect
+document.addEventListener('contextmenu', e => {
+  if (['paragraph', 'mcqs'].includes(e.target.id) || e.target.closest('#mcqs')) e.preventDefault();
 });
-
-// 🛡️ Disable copy, cut, paste on paragraph and mcqs
 ['copy', 'cut', 'paste'].forEach(evt => {
   const paragraph = document.getElementById('paragraph');
   const mcqs = document.getElementById('mcqs');
   if (paragraph) paragraph.addEventListener(evt, e => e.preventDefault());
   if (mcqs) mcqs.addEventListener(evt, e => e.preventDefault());
 });
-
-// 🔒 Disable text selection on full page
-document.addEventListener('selectstart', function (e) {
-  e.preventDefault();
-});
-
-// 🔒 Disable dev tools shortcuts (F12, Ctrl+U, Ctrl+Shift+I/J/C)
-document.addEventListener('keydown', function (e) {
+document.addEventListener('selectstart', e => e.preventDefault());
+document.addEventListener('keydown', e => {
   if (e.key === "F12") e.preventDefault();
   if (e.ctrlKey && e.shiftKey && ['i', 'j', 'c'].includes(e.key.toLowerCase())) e.preventDefault();
   if (e.ctrlKey && e.key.toLowerCase() === 'u') e.preventDefault();
 });
 </script>
+</body>
+</html>
 
 </body>
 </html>
