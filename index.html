@@ -96,7 +96,7 @@
       border-radius: 10px;
       margin-bottom: 10px;
     }
-    #testPage h3 { margin: 15px 0 5px; }
+    #testPage h3 { margin: 15px 0 5px; display: flex; justify-content: space-between; align-items: center; }
     #timer { font-weight: bold; margin-bottom: 10px; }
     .emoji {
       font-size: 2em;
@@ -109,23 +109,23 @@
       user-select: none;
       pointer-events: auto;
     }
-.blurred {
-    filter: blur(4px);
-    pointer-events: none;
-    user-select: none;
-    transition: filter 0.4s ease;
-  }
-  #startReadBtn {
-    float: right;
-    background: #f9a825;
-    border: none;
-    border-radius: 8px;
-    padding: 5px 12px;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    display: none;
-  }
+    .blurred {
+      filter: blur(4px);
+      pointer-events: none;
+      user-select: none;
+      transition: filter 0.4s ease;
+    }
+    #startReadBtn {
+      background: #f9a825;
+      border: none;
+      border-radius: 8px;
+      padding: 5px 12px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      display: inline-block;
+      margin-left: auto;
+    }
   </style>
 </head>
 <body>
@@ -150,8 +150,8 @@
 <!-- Test Page -->
 <div id="testPage">
   <div id="timer">Reading time left: <span id="time">180</span> sec</div>
-  <h3 style="color: red;">
-    Please Read Carefully
+  <h3>
+    <span>Please Read Carefully</span>
     <button id="startReadBtn" onclick="startReading()">Start Read</button>
   </h3>
   <p id="paragraph"></p>
