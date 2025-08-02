@@ -390,11 +390,11 @@ function loadQuestions() {
 
   let mcqsHtml = "";
   currentPassage.questions.forEach((q, i) => {
-    mcqsHtml += <p><strong>${i + 1}. ${q.q} <span style="color:red">*</span></strong><br>;
+    mcqsHtml += `<p><strong>${i + 1}. ${q.q} <span style="color:red">*</span></strong><br>`;
     q.o.forEach(opt => {
-      mcqsHtml += <label><input type="radio" name="q${i}" value="${opt}"> ${opt}</label><br>;
+      mcqsHtml += `<label><input type="radio" name="q${i}" value="${opt}"> ${opt}</label><br>`;
     });
-    mcqsHtml += </p>;
+    mcqsHtml += `</p>`;
   });
   document.getElementById('mcqs').innerHTML = mcqsHtml;
 }
@@ -405,7 +405,7 @@ function submitAnswers() {
   let allAnswered = true;
   userAnswers = [];
   currentPassage.questions.forEach((q, i) => {
-    const selected = document.querySelector(input[name="q${i}"]:checked);
+    const selected = document.querySelector(`input[name="q${i}"]:checked`);
     if (!selected) allAnswered = false;
     userAnswers.push(selected ? selected.value : null);
   });
@@ -429,13 +429,13 @@ function submitAnswers() {
   const correct = score;
   const wrong = total - correct;
 
-  const scoreText = 
+  const scoreText = `
     Total Questions: ${total}<br>
     Correct Answers: ${correct}<br>
     Wrong Answers: ${wrong}
-  ;
+  `;
   const scoreElement = document.createElement("p");
-  scoreElement.innerHTML = <strong>${scoreText}</strong>;
+  scoreElement.innerHTML = `<strong>${scoreText}</strong>`;
   scoreElement.style.textAlign = "center";
   scoreElement.style.margin = "15px 0";
   document.getElementById('finalPage').insertBefore(scoreElement, document.getElementById('resultChart'));
@@ -455,14 +455,14 @@ function submitAnswers() {
   let reviewHtml = "<h4>Review Your Answers:</h4>";
   currentPassage.questions.forEach((q, i) => {
     const isCorrect = userAnswers[i] === q.c;
-    reviewHtml += <p><strong>${i + 1}. ${q.q}</strong><br>;
+    reviewHtml += `<p><strong>${i + 1}. ${q.q}</strong><br>`;
     q.o.forEach(opt => {
       const selected = userAnswers[i] === opt;
       const isAnswer = q.c === opt;
       const cls = selected ? (isAnswer ? 'correct' : 'incorrect') : (isAnswer ? 'correct' : '');
-      reviewHtml += <span class="${cls}">${selected ? '➤' : ''} ${opt}</span><br>;
+      reviewHtml += `<span class="${cls}">${selected ? '➤' : ''} ${opt}</span><br>`;
     });
-    reviewHtml += </p>;
+    reviewHtml += `</p>`;
   });
   document.getElementById('answersReview').innerHTML = reviewHtml;
 
