@@ -334,28 +334,27 @@ const passages = [
 let currentPassage = null;
 let userAnswers = [];
 let autoSubmitTimer = null;
-
 let readingStartTime, readingEndTime, testStartTime, testEndTime;
+
+function formatDuration(seconds) {
+  const mins = Math.floor(seconds / 60).toString().padStart(2, '0');
+  const secs = (seconds % 60).toString().padStart(2, '0');
+  return `${mins}:${secs}`;
+}
 
 function startTest() {
   const name = document.getElementById('name').value.trim();
   const email = document.getElementById('email').value.trim();
   const errorMsg = document.getElementById('errorMsg');
-
   if (!name || !email) {
     errorMsg.style.display = 'block';
     return;
   } else {
     errorMsg.style.display = 'none';
   }
-
   document.getElementById('loginPage').style.display = 'none';
   document.getElementById('testPage').style.display = 'block';
-
-  const randomIndex = Math.floor(Math.random() * passages.length);
-  currentPassage = passages[randomIndex];
   document.getElementById('paragraph').innerText = currentPassage.text;
-
   document.getElementById('paragraph').classList.add('blurred');
   document.getElementById('startReadBtn').style.display = 'inline-block';
 }
@@ -364,19 +363,14 @@ function startReading() {
   readingStartTime = Date.now();
   document.getElementById('paragraph').classList.remove('blurred');
   document.getElementById('startReadBtn').style.display = 'none';
-
   let timeLeft = 300;
-  document.getElementById('time').innerText = timeLeft;
-
   autoSubmitTimer = setInterval(() => {
     timeLeft--;
-    document.getElementById('time').innerText = timeLeft;
     if (timeLeft <= 0) {
       clearInterval(autoSubmitTimer);
-      loadQuestions(); // auto proceeds to question page
+      loadQuestions();
     }
   }, 1000);
-
   document.getElementById('proceedToQuestions').disabled = false;
 }
 
@@ -384,13 +378,11 @@ function loadQuestions() {
   clearInterval(autoSubmitTimer);
   readingEndTime = Date.now();
   testStartTime = Date.now();
-
   document.getElementById('testPage').style.display = 'none';
   document.getElementById('questionPage').style.display = 'block';
-
   let mcqsHtml = "";
   currentPassage.questions.forEach((q, i) => {
-    mcqsHtml += `<p><strong>${i + 1}. ${q.q} <span style="color:red">*</span></strong><br>`;
+    mcqsHtml += `<p><strong>${i + 1}. ${q.q}</strong><br>`;
     q.o.forEach(opt => {
       mcqsHtml += `<label><input type="radio" name="q${i}" value="${opt}"> ${opt}</label><br>`;
     });
@@ -401,7 +393,6 @@ function loadQuestions() {
 
 function submitAnswers() {
   testEndTime = Date.now();
-
   let allAnswered = true;
   userAnswers = [];
   currentPassage.questions.forEach((q, i) => {
@@ -409,76 +400,45 @@ function submitAnswers() {
     if (!selected) allAnswered = false;
     userAnswers.push(selected ? selected.value : null);
   });
-
   if (!allAnswered) {
     alert("Please answer all questions before submitting.");
     return;
   }
-
   let score = 0;
   currentPassage.questions.forEach((q, i) => {
     if (userAnswers[i] === q.c) score++;
   });
-
   document.getElementById('questionPage').style.display = 'none';
   document.getElementById('finalPage').style.display = 'block';
   document.getElementById('userName').innerText = document.getElementById('name').value.trim();
   document.getElementById('userEmail').innerText = document.getElementById('email').value.trim();
-
   const total = currentPassage.questions.length;
   const correct = score;
   const wrong = total - correct;
-
-  const scoreText = `
-    Total Questions: ${total}<br>
-    Correct Answers: ${correct}<br>
-    Wrong Answers: ${wrong}
-  `;
+  const scoreText = `Total Questions: ${total}<br>Correct Answers: ${correct}<br>Wrong Answers: ${wrong}`;
   const scoreElement = document.createElement("p");
   scoreElement.innerHTML = `<strong>${scoreText}</strong>`;
   scoreElement.style.textAlign = "center";
   scoreElement.style.margin = "15px 0";
   document.getElementById('finalPage').insertBefore(scoreElement, document.getElementById('resultChart'));
-
   new Chart(document.getElementById('resultChart').getContext('2d'), {
     type: 'pie',
     data: {
       labels: ['Correct', 'Incorrect'],
-      datasets: [{
-        data: [correct, wrong],
-        backgroundColor: ['#28a745', '#dc3545']
-      }]
+      datasets: [{ data: [correct, wrong], backgroundColor: ['#28a745', '#dc3545'] }]
     },
     options: { responsive: true }
   });
-
-  let reviewHtml = "<h4>Review Your Answers:</h4>";
-  currentPassage.questions.forEach((q, i) => {
-    const isCorrect = userAnswers[i] === q.c;
-    reviewHtml += `<p><strong>${i + 1}. ${q.q}</strong><br>`;
-    q.o.forEach(opt => {
-      const selected = userAnswers[i] === opt;
-      const isAnswer = q.c === opt;
-      const cls = selected ? (isAnswer ? 'correct' : 'incorrect') : (isAnswer ? 'correct' : '');
-      reviewHtml += `<span class="${cls}">${selected ? '➤' : ''} ${opt}</span><br>`;
-    });
-    reviewHtml += `</p>`;
-  });
-  document.getElementById('answersReview').innerHTML = reviewHtml;
-
   const readingTime = Math.round((readingEndTime - readingStartTime) / 1000);
   const testTime = Math.round((testEndTime - testStartTime) / 1000);
-
-  // Auto send to Google Sheet here
   const formData = new FormData();
   formData.append('entry.1640574701', document.getElementById('name').value.trim());
   formData.append('entry.2044946124', document.getElementById('email').value.trim());
   formData.append('entry.645538404', total);
   formData.append('entry.895886336', correct);
   formData.append('entry.115296724', wrong);
-  formData.append('entry.2140657840', readingTime);  // Reading Time
-  formData.append('entry.1238249296', testTime);     // Test Time
-
+  formData.append('entry.2140657840', formatDuration(readingTime));
+  formData.append('entry.1238249296', formatDuration(testTime));
   fetch('https://docs.google.com/forms/d/e/1FAIpQLSfUJDDXqcvb_mz-ceL3yxA6kFF1ds4HEwDZzugyrO0tQVaBiA/formResponse', {
     method: 'POST',
     mode: 'no-cors',
