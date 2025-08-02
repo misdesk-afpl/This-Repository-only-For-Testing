@@ -167,11 +167,15 @@
 
 <!-- Test Page -->
 <div id="testPage">
-  <div id="timer">Reading time left: <span id="time">05:00</span>
-
-    <span style="color:red; font-weight:bold; white-space: nowrap;">Please Read Carefully</span>
-    <button id="startReadBtn" onclick="startReading()">Start Read</button>
-  </h3>
+  <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px; margin-bottom: 8px;">
+  <div style="font-weight: bold;">
+    Reading time left: <span id="time">05:00</span>
+    <span style="color:red; font-weight:bold; white-space: nowrap;"> Please Read Carefully</span>
+  </div>
+  <button id="startReadBtn" onclick="startReading()" style="padding: 6px 14px; font-size: 13px; font-weight: bold; border: none; background: linear-gradient(to right, #36d1dc, #5b86e5); color: white; border-radius: 20px; cursor: pointer;">
+    Start Read
+  </button>
+</div>
   <p id="paragraph" class="blurred"></p>
   <button id="proceedToQuestions" onclick="loadQuestions()" disabled>I have read it. Now attempt the test</button>
 </div>
