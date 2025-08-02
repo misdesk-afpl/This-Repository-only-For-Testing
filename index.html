@@ -102,12 +102,13 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
     }
     #testPage h3 span {
       color: red;
       font-weight: bold;
       font-size: 15px;
+      white-space: nowrap;
     }
     #timer { font-weight: bold; margin-bottom: 10px; }
     .emoji {
@@ -131,7 +132,7 @@
       background: linear-gradient(to right, #36d1dc, #5b86e5);
       border: none;
       border-radius: 25px;
-      padding: 3px 15px;
+      padding: 4px 10px;
       color: white;
       font-weight: bold;
       cursor: pointer;
@@ -165,7 +166,7 @@
     <span style="color:red; font-weight:bold; white-space: nowrap;">Please Read Carefully</span>
     <button id="startReadBtn" onclick="startReading()">Start Read</button>
   </h3>
-  <p id="paragraph"></p>
+  <p id="paragraph" class="blurred"></p>
   <button id="proceedToQuestions" onclick="loadQuestions()" disabled>I have read it. Now attempt the test</button>
 </div>
 
@@ -334,6 +335,8 @@ let currentPassage = null;
 let userAnswers = [];
 let autoSubmitTimer = null;
 
+let readingStartTime, readingEndTime, testStartTime, testEndTime;
+
 function startTest() {
   const name = document.getElementById('name').value.trim();
   const email = document.getElementById('email').value.trim();
@@ -358,6 +361,7 @@ function startTest() {
 }
 
 function startReading() {
+  readingStartTime = Date.now();
   document.getElementById('paragraph').classList.remove('blurred');
   document.getElementById('startReadBtn').style.display = 'none';
 
@@ -378,6 +382,9 @@ function startReading() {
 
 function loadQuestions() {
   clearInterval(autoSubmitTimer);
+  readingEndTime = Date.now();
+  testStartTime = Date.now();
+
   document.getElementById('testPage').style.display = 'none';
   document.getElementById('questionPage').style.display = 'block';
 
@@ -393,6 +400,8 @@ function loadQuestions() {
 }
 
 function submitAnswers() {
+  testEndTime = Date.now();
+
   let allAnswered = true;
   userAnswers = [];
   currentPassage.questions.forEach((q, i) => {
@@ -457,6 +466,9 @@ function submitAnswers() {
   });
   document.getElementById('answersReview').innerHTML = reviewHtml;
 
+  const readingTime = Math.round((readingEndTime - readingStartTime) / 1000);
+  const testTime = Math.round((testEndTime - testStartTime) / 1000);
+
   // Auto send to Google Sheet here
   const formData = new FormData();
   formData.append('entry.1640574701', document.getElementById('name').value.trim());
@@ -464,6 +476,8 @@ function submitAnswers() {
   formData.append('entry.645538404', total);
   formData.append('entry.895886336', correct);
   formData.append('entry.115296724', wrong);
+  formData.append('entry.2140657840', readingTime);  // Reading Time
+  formData.append('entry.1238249296', testTime);     // Test Time
 
   fetch('https://docs.google.com/forms/d/e/1FAIpQLSfUJDDXqcvb_mz-ceL3yxA6kFF1ds4HEwDZzugyrO0tQVaBiA/formResponse', {
     method: 'POST',
