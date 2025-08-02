@@ -102,6 +102,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-wrap: wrap;
     }
     #testPage h3 span {
       color: red;
@@ -130,7 +131,7 @@
       background: linear-gradient(to right, #36d1dc, #5b86e5);
       border: none;
       border-radius: 25px;
-      padding: 3px 10px;
+      padding: 3px 15px;
       color: white;
       font-weight: bold;
       cursor: pointer;
@@ -159,9 +160,9 @@
 
 <!-- Test Page -->
 <div id="testPage">
-  <div id="timer">Reading time left: <span id="time">180</span> sec</div>
+  <div id="timer">Reading time left: <span id="time">300</span> sec</div>
   <h3>
-    <span style="color:red; font-weight:bold;">Please Read Carefully</span>
+    <span style="color:red; font-weight:bold; white-space: nowrap;">Please Read Carefully</span>
     <button id="startReadBtn" onclick="startReading()">Start Read</button>
   </h3>
   <p id="paragraph"></p>
