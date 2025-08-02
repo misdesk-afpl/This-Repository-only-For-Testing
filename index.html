@@ -167,8 +167,8 @@
 
 <!-- Test Page -->
 <div id="testPage">
-  <div id="timer">Reading time left: <span id="time">300</span> sec</div>
-  <h3>
+  <div id="timer">Reading time left: <span id="time">05:00</span>
+
     <span style="color:red; font-weight:bold; white-space: nowrap;">Please Read Carefully</span>
     <button id="startReadBtn" onclick="startReading()">Start Read</button>
   </h3>
@@ -371,15 +371,14 @@ function startReading() {
   document.getElementById('paragraph').classList.remove('blurred');
   document.getElementById('startReadBtn').style.display = 'none';
 
-  let timeLeft = 300;
-  document.getElementById('time').innerText = timeLeft;
-
-  autoSubmitTimer = setInterval(() => {
-    timeLeft--;
-    document.getElementById('time').innerText = timeLeft;
-    if (timeLeft <= 0) {
-      clearInterval(autoSubmitTimer);
-      loadQuestions(); // auto proceeds to question page
+  let secondsLeft = 300;
+  document.getElementById('time').innerText = formatDuration(secondsLeft); // Show initial 05:00
+  const interval = setInterval(() => {
+    secondsLeft--;
+    document.getElementById('time').innerText = formatDuration(secondsLeft); // ✅ MM:SS
+    if (secondsLeft <= 0) {
+      clearInterval(interval);
+      document.getElementById('proceedToQuestions').disabled = false;
     }
   }, 1000);
 
