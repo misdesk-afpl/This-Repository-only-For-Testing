@@ -166,16 +166,14 @@
 </div>
 
 <!-- Test Page -->
-<div id="testPage" style="display:none;">
-  <h3 style="display: flex; justify-content: space-between; align-items: center;">
-    <span>Please Read Carefully</span>
-    <button id="startReadBtn" onclick="startReading()">Start Reading</button>
+<div id="testPage">
+  <div id="timer">Reading time left: <span id="time">05:00</span>
+
+    <span style="color:red; font-weight:bold; white-space: nowrap;">Please Read Carefully</span>
+    <button id="startReadBtn" onclick="startReading()">Start Read</button>
   </h3>
-  
-  <div id="time" style="text-align: right; font-weight: bold; color: #007bff; font-size: 16px;"></div>
-  
-  <div id="paragraph" class="blurred"></div>
-<button id="proceedToQuestions" onclick="loadQuestions()" disabled>Proceed to Questions</button>
+  <p id="paragraph" class="blurred"></p>
+  <button id="proceedToQuestions" onclick="loadQuestions()" disabled>I have read it. Now attempt the test</button>
 </div>
 
 <!-- Question Page -->
@@ -473,14 +471,8 @@ function submitAnswers() {
   });
   document.getElementById('answersReview').innerHTML = reviewHtml;
 
- function formatDuration(seconds) {
-  const min = Math.floor(seconds / 60).toString().padStart(2, '0');
-  const sec = (seconds % 60).toString().padStart(2, '0');
-  return `${min}:${sec}`;
-}
-
-const readingTime = formatDuration(Math.round((readingEndTime - readingStartTime) / 1000));
-const testTime = formatDuration(Math.round((testEndTime - testStartTime) / 1000));
+  const readingTime = Math.round((readingEndTime - readingStartTime) / 1000);
+  const testTime = Math.round((testEndTime - testStartTime) / 1000);
 
   // Auto send to Google Sheet here
   const formData = new FormData();
@@ -527,7 +519,3 @@ document.addEventListener('keydown', e => {
 </body>
 </html>
 
-
-
-
-now all is ok?
