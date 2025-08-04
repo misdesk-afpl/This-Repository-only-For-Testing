@@ -346,50 +346,48 @@ let userAnswers = [];
 let autoSubmitTimer = null;
 
 let readingStartTime, readingEndTime, testStartTime, testEndTime;
+let readingTimerInterval = null;
 
-function startTest() {
-  const name = document.getElementById('name').value.trim();
-  const email = document.getElementById('email').value.trim();
-  const errorMsg = document.getElementById('errorMsg');
-
-  if (!name || !email) {
-    errorMsg.style.display = 'block';
-    return;
-  } else {
-    errorMsg.style.display = 'none';
-  }
-
-  document.getElementById('loginPage').style.display = 'none';
-  document.getElementById('testPage').style.display = 'block';
-
-  const randomIndex = Math.floor(Math.random() * passages.length);
-  currentPassage = passages[randomIndex];
-  document.getElementById('paragraph').innerText = currentPassage.text;
-
-  document.getElementById('paragraph').classList.add('blurred');
-  document.getElementById('startReadBtn').style.display = 'inline-block';
+function formatDuration(seconds) {
+  const m = Math.floor(seconds / 60);
+  const s = seconds % 60;
+  return `${m}:${s < 10 ? '0' + s : s}`;
 }
 
 function startReading() {
   readingStartTime = Date.now();
-  document.getElementById('paragraph').classList.remove('blurred');
-  document.getElementById('startReadBtn').style.display = 'none';
 
-  let secondsLeft = 300; // 3 minutes countdown
-  document.getElementById('time').innerText = formatDuration(secondsLeft);
+  const paragraph = document.getElementById('paragraph');
+  paragraph.classList.remove('blurred');
 
-  const interval = setInterval(() => {
+  const startReadBtn = document.getElementById('startReadBtn');
+  startReadBtn.style.display = 'none';
+
+  const proceedBtn = document.getElementById('proceedToQuestions');
+  proceedBtn.disabled = true;
+
+  let secondsLeft = 180;
+  const timeDisplay = document.getElementById('time');
+  timeDisplay.style.fontWeight = 'bold';
+  timeDisplay.innerText = `Reading Time Left: ${formatDuration(secondsLeft)}`;
+
+  readingTimerInterval = setInterval(() => {
     secondsLeft--;
-    document.getElementById('time').innerText = formatDuration(secondsLeft);
-
+    if (secondsLeft >= 0) {
+      timeDisplay.innerText = `Reading Time Left: ${formatDuration(secondsLeft)}`;
+    }
     if (secondsLeft <= 0) {
-      clearInterval(interval);
-      document.getElementById('proceedToQuestions').disabled = false;
+      clearInterval(readingTimerInterval);
+      proceedBtn.disabled = false;
+      timeDisplay.innerText = "Reading time completed!";
     }
   }, 1000);
+}
 
-  // Make sure this button is active immediately
-  document.getElementById('proceedToQuestions').disabled = false;
+function updateTimerDisplay(seconds) {
+  const min = Math.floor(seconds / 60);
+  const sec = seconds % 60;
+  document.getElementById('time').innerText = `Reading Time Left: ${min}:${sec < 10 ? '0' : ''}${sec}`;
 }
 
 function loadQuestions() {
