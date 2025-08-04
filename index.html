@@ -341,17 +341,16 @@ const passages = [
     }
   ];
 
+
 let currentPassage = null;
 let userAnswers = [];
-let autoSubmitTimer = null;
-
 let readingStartTime, readingEndTime, testStartTime, testEndTime;
 let readingTimerInterval = null;
 
 function formatDuration(seconds) {
-  const m = Math.floor(seconds / 60);
-  const s = seconds % 60;
-  return `${m}:${s < 10 ? '0' + s : s}`;
+  const mins = Math.floor(seconds / 60);
+  const secs = seconds % 60;
+  return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
 }
 
 function startTest() {
@@ -375,9 +374,7 @@ function startTest() {
 
   document.getElementById('paragraph').classList.add('blurred');
   document.getElementById('startReadBtn').style.display = 'inline-block';
-
   document.getElementById('time').innerText = '';
-  document.getElementById('proceedToQuestions').disabled = true;
 }
 
 function startReading() {
@@ -386,28 +383,25 @@ function startReading() {
   document.getElementById('startReadBtn').style.display = 'none';
 
   const proceedBtn = document.getElementById('proceedToQuestions');
-  proceedBtn.disabled = false;
+  proceedBtn.disabled = false; // Allow user to proceed anytime
 
-  let secondsLeft = 300;
-  const timeDisplay = document.getElementById('time');
-  timeDisplay.style.fontWeight = 'bold';
-  timeDisplay.innerText = `Reading Time Left: ${formatDuration(secondsLeft)}`;
+  let secondsLeft = 180; // 3 minutes
+  document.getElementById('time').innerText = formatDuration(secondsLeft);
 
   readingTimerInterval = setInterval(() => {
     secondsLeft--;
-    if (secondsLeft >= 0) {
-      timeDisplay.innerText = `Reading Time Left: ${formatDuration(secondsLeft)}`;
-    }
+    document.getElementById('time').innerText = formatDuration(secondsLeft);
+
     if (secondsLeft <= 0) {
       clearInterval(readingTimerInterval);
-      proceedBtn.disabled = false;
-      timeDisplay.innerText = "Reading time completed!";
+      readingEndTime = Date.now();
+      loadQuestions();
     }
   }, 1000);
 }
 
 function loadQuestions() {
-  clearInterval(autoSubmitTimer);
+  clearInterval(readingTimerInterval);
   readingEndTime = Date.now();
   testStartTime = Date.now();
 
@@ -492,9 +486,10 @@ function submitAnswers() {
   });
   document.getElementById('answersReview').innerHTML = reviewHtml;
 
-  const readingTime = Math.round((readingEndTime - readingStartTime) / 1000);
-  const testTime = Math.round((testEndTime - testStartTime) / 1000);
+  const readingTime = formatDuration(Math.round((readingEndTime - readingStartTime) / 1000));
+  const testTime = formatDuration(Math.round((testEndTime - testStartTime) / 1000));
 
+  // Auto send to Google Sheet
   const formData = new FormData();
   formData.append('entry.1640574701', document.getElementById('name').value.trim());
   formData.append('entry.2044946124', document.getElementById('email').value.trim());
