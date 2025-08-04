@@ -375,17 +375,20 @@ function startReading() {
   document.getElementById('paragraph').classList.remove('blurred');
   document.getElementById('startReadBtn').style.display = 'none';
 
-  let secondsLeft = 300;
-  document.getElementById('time').innerText = formatDuration(secondsLeft); // Show initial 05:00
+  let secondsLeft = 300; // 3 minutes countdown
+  document.getElementById('time').innerText = formatDuration(secondsLeft);
+
   const interval = setInterval(() => {
     secondsLeft--;
-    document.getElementById('time').innerText = formatDuration(secondsLeft); // ✅ MM:SS
+    document.getElementById('time').innerText = formatDuration(secondsLeft);
+
     if (secondsLeft <= 0) {
       clearInterval(interval);
       document.getElementById('proceedToQuestions').disabled = false;
     }
   }, 1000);
 
+  // Make sure this button is active immediately
   document.getElementById('proceedToQuestions').disabled = false;
 }
 
