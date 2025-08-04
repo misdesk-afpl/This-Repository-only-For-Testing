@@ -354,14 +354,36 @@ function formatDuration(seconds) {
   return `${m}:${s < 10 ? '0' + s : s}`;
 }
 
+function startTest() {
+  const name = document.getElementById('name').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const errorMsg = document.getElementById('errorMsg');
+
+  if (!name || !email) {
+    errorMsg.style.display = 'block';
+    return;
+  } else {
+    errorMsg.style.display = 'none';
+  }
+
+  document.getElementById('loginPage').style.display = 'none';
+  document.getElementById('testPage').style.display = 'block';
+
+  const randomIndex = Math.floor(Math.random() * passages.length);
+  currentPassage = passages[randomIndex];
+  document.getElementById('paragraph').innerText = currentPassage.text;
+
+  document.getElementById('paragraph').classList.add('blurred');
+  document.getElementById('startReadBtn').style.display = 'inline-block';
+
+  document.getElementById('time').innerText = '';
+  document.getElementById('proceedToQuestions').disabled = true;
+}
+
 function startReading() {
   readingStartTime = Date.now();
-
-  const paragraph = document.getElementById('paragraph');
-  paragraph.classList.remove('blurred');
-
-  const startReadBtn = document.getElementById('startReadBtn');
-  startReadBtn.style.display = 'none';
+  document.getElementById('paragraph').classList.remove('blurred');
+  document.getElementById('startReadBtn').style.display = 'none';
 
   const proceedBtn = document.getElementById('proceedToQuestions');
   proceedBtn.disabled = true;
@@ -382,12 +404,6 @@ function startReading() {
       timeDisplay.innerText = "Reading time completed!";
     }
   }, 1000);
-}
-
-function updateTimerDisplay(seconds) {
-  const min = Math.floor(seconds / 60);
-  const sec = seconds % 60;
-  document.getElementById('time').innerText = `Reading Time Left: ${min}:${sec < 10 ? '0' : ''}${sec}`;
 }
 
 function loadQuestions() {
@@ -479,15 +495,14 @@ function submitAnswers() {
   const readingTime = Math.round((readingEndTime - readingStartTime) / 1000);
   const testTime = Math.round((testEndTime - testStartTime) / 1000);
 
-  // Auto send to Google Sheet here
   const formData = new FormData();
   formData.append('entry.1640574701', document.getElementById('name').value.trim());
   formData.append('entry.2044946124', document.getElementById('email').value.trim());
   formData.append('entry.645538404', total);
   formData.append('entry.895886336', correct);
   formData.append('entry.115296724', wrong);
-  formData.append('entry.2140657840', readingTime);  // Reading Time
-  formData.append('entry.1238249296', testTime);     // Test Time
+  formData.append('entry.2140657840', readingTime);
+  formData.append('entry.1238249296', testTime);
 
   fetch('https://docs.google.com/forms/d/e/1FAIpQLSfUJDDXqcvb_mz-ceL3yxA6kFF1ds4HEwDZzugyrO0tQVaBiA/formResponse', {
     method: 'POST',
@@ -501,7 +516,6 @@ function showSuccess() {
   document.getElementById('successPage').style.display = 'flex';
 }
 
-// Disable text select, copy, inspect
 document.addEventListener('contextmenu', e => {
   if (['paragraph', 'mcqs'].includes(e.target.id) || e.target.closest('#mcqs')) e.preventDefault();
 });
