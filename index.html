@@ -204,20 +204,126 @@
 <script>
 const passages = [
  {
-      "title": "Artificial Intelligence (AI)",
-      "text": "Artificial Intelligence, also called AI, is a smart technology that helps machines think and act like humans. AI can learn from data and improve over time. For example, when you use your phone, AI helps in face unlock, voice assistants like Siri or Google Assistant, and even in typing suggestions. AI is not magic, but a way to teach computers to do tasks that need human intelligence.\nToday, AI is used almost everywhere. On social media, AI suggests posts and friends you may like. In shopping apps, AI shows products based on your interest. AI helps doctors find diseases faster by looking at medical images. It is also used in self-driving cars that can sense traffic and decide where to go. Many chatbots on websites are powered by AI to answer our questions quickly.\nAI saves time and makes life easy. It can do boring and repeated work quickly. AI can read large data and give useful results which humans may miss. In factories, AI robots help in making products faster and safer. AI also helps farmers to know when to water crops and protect them from pests. AI is becoming part of our daily life slowly but strongly.\nIn the future, AI will bring even more changes. Some people worry AI may take away some jobs, but it can also create new jobs. It is important to learn how AI works so we can use it properly. AI is a tool, and humans must use it wisely to help society.",
-      "questions": [
-        {"q":"What does AI help machines do?", "o":["Think and act like humans","Sleep","Eat","Fly"], "c":"Think and act like humans"},
-        {"q":"AI is used in:", "o":["Face unlock","Making food only","Digging","Building roads only"], "c":"Face unlock"},
-        {"q":"AI learns from:", "o":["Data","Stones","Wood","Flowers"], "c":"Data"},
-        {"q":"AI helps doctors by:", "o":["Finding diseases faster","Cooking food","Cutting trees","Cleaning roads"], "c":"Finding diseases faster"},
-        {"q":"Self-driving cars use AI to:", "o":["Sense traffic","Drink water","Sleep","Dance"], "c":"Sense traffic"},
-        // {"q":"AI chatbots answer:", "o":["Questions","Poems","Songs","Videos"], "c":"Questions"},
-        // {"q":"AI makes work:", "o":["Fast and easy","Slow and hard","Impossible","Expensive only"], "c":"Fast and easy"},
-        // {"q":"Farmers use AI to:", "o":["Know about crops","Play games","Build houses","Paint"], "c":"Know about crops"},
-        // {"q":"In the future, AI may also:", "o":["Create new jobs","Sleep","Swim","Shout"], "c":"Create new jobs"},
-        // {"q":"AI is a tool, so humans must:", "o":["Use it wisely","Break it","Sell it","Hide it"], "c":"Use it wisely"}
-      ]},
+ "title": "Artificial Intelligence (AI)",
+  "text": "Artificial Intelligence, also called AI, is a smart technology that helps machines think and act like humans. AI can learn from data and improve over time. For example, when you use your phone, AI helps in face unlock, voice assistants like Siri or Google Assistant, and even in typing suggestions. AI is not magic, but a way to teach computers to do tasks that need human intelligence.\nToday, AI is used almost everywhere. On social media, AI suggests posts and friends you may like. In shopping apps, AI shows products based on your interest. AI helps doctors find diseases faster by looking at medical images. It is also used in self-driving cars that can sense traffic and decide where to go. Many chatbots on websites are powered by AI to answer our questions quickly.\nAI saves time and makes life easy. It can do boring and repeated work quickly. AI can read large data and give useful results which humans may miss. In factories, AI robots help in making products faster and safer. AI also helps farmers to know when to water crops and protect them from pests. AI is becoming part of our daily life slowly but strongly.\nIn the future, AI will bring even more changes. Some people worry AI may take away some jobs, but it can also create new jobs. It is important to learn how AI works so we can use it properly. AI is a tool, and humans must use it wisely to help society.",
+  "questions": [
+    {
+      "q": "What is the primary goal of Artificial Intelligence?",
+      "o": [
+        "To enable machines to mimic human thinking and behavior",
+        "To replace all computers with robots",
+        "To teach animals how to code",
+        "To make websites load faster"
+      ],
+      "c": "To enable machines to mimic human thinking and behavior"
+    },
+    {
+      "q": "Which of the following is an example of AI on smartphones?",
+      "o": [
+        "Face unlock feature",
+        "Charging the battery",
+        "Turning on airplane mode",
+        "Adjusting screen brightness manually"
+      ],
+      "c": "Face unlock feature"
+    },
+    {
+      "q": "How does AI typically improve its performance over time?",
+      "o": [
+        "By learning from data and adapting",
+        "By getting frequent oil changes",
+        "By resetting itself every night",
+        "By using natural sunlight"
+      ],
+      "c": "By learning from data and adapting"
+    },
+    {
+      "q": "What role does AI play in the field of healthcare?",
+      "o": [
+        "It helps identify diseases from medical images",
+        "It performs physical surgery without tools",
+        "It replaces doctors in hospitals",
+        "It generates patient clothing designs"
+      ],
+      "c": "It helps identify diseases from medical images"
+    },
+    {
+      "q": "In what way do self-driving cars benefit from AI?",
+      "o": [
+        "They analyze traffic patterns to make driving decisions",
+        "They use AI to open their windows automatically",
+        "They recharge using AI-powered solar panels",
+        "They play music chosen by AI"
+      ],
+      "c": "They analyze traffic patterns to make driving decisions"
+    },
+    {
+      "q": "Which task is AI especially good at handling?",
+      "o": [
+        "Repetitive and time-consuming processes",
+        "Writing poetry with emotions",
+        "Flying without wings",
+        "Growing food in forests"
+      ],
+      "c": "Repetitive and time-consuming processes"
+    },
+    {
+      "q": "How does AI support farming activities?",
+      "o": [
+        "By providing data about irrigation and pest control",
+        "By planting seeds directly with robotic arms",
+        "By changing weather conditions",
+        "By forecasting milk production in cows"
+      ],
+      "c": "By providing data about irrigation and pest control"
+    },
+    {
+      "q": "What is one concern people have about the future of AI?",
+      "o": [
+        "It may reduce the number of human jobs",
+        "It may cause all machines to stop working",
+        "It will make people allergic to technology",
+        "It will lead to the disappearance of social media"
+      ],
+      "c": "It may reduce the number of human jobs"
+    },
+    {
+      "q": "Which of these statements best describes the relationship between humans and AI?",
+      "o": [
+        "AI is a tool that humans should use responsibly",
+        "Humans should obey all AI decisions without question",
+        "AI completely replaces human intelligence",
+        "Humans and AI should avoid working together"
+      ],
+      "c": "AI is a tool that humans should use responsibly"
+    },
+    {
+      "q": "Why is it important to understand how AI works?",
+      "o": [
+        "So we can use it effectively and ethically",
+        "To learn how to build airplanes",
+        "To make faster photocopies",
+        "To understand how electricity flows through wires"
+      ],
+      "c": "So we can use it effectively and ethically"
+      }
+    ]
+  }
+];
+      // "title": "Artificial Intelligence (AI)",
+      // "text": "Artificial Intelligence, also called AI, is a smart technology that helps machines think and act like humans. AI can learn from data and improve over time. For example, when you use your phone, AI helps in face unlock, voice assistants like Siri or Google Assistant, and even in typing suggestions. AI is not magic, but a way to teach computers to do tasks that need human intelligence.\nToday, AI is used almost everywhere. On social media, AI suggests posts and friends you may like. In shopping apps, AI shows products based on your interest. AI helps doctors find diseases faster by looking at medical images. It is also used in self-driving cars that can sense traffic and decide where to go. Many chatbots on websites are powered by AI to answer our questions quickly.\nAI saves time and makes life easy. It can do boring and repeated work quickly. AI can read large data and give useful results which humans may miss. In factories, AI robots help in making products faster and safer. AI also helps farmers to know when to water crops and protect them from pests. AI is becoming part of our daily life slowly but strongly.\nIn the future, AI will bring even more changes. Some people worry AI may take away some jobs, but it can also create new jobs. It is important to learn how AI works so we can use it properly. AI is a tool, and humans must use it wisely to help society.",
+      // "questions": [
+      //   {"q":"What does AI help machines do?", "o":["Think and act like humans","Sleep","Eat","Fly"], "c":"Think and act like humans"},
+      //   {"q":"AI is used in:", "o":["Face unlock","Making food only","Digging","Building roads only"], "c":"Face unlock"},
+      //   {"q":"AI learns from:", "o":["Data","Stones","Wood","Flowers"], "c":"Data"},
+      //   {"q":"AI helps doctors by:", "o":["Finding diseases faster","Cooking food","Cutting trees","Cleaning roads"], "c":"Finding diseases faster"},
+      //   {"q":"Self-driving cars use AI to:", "o":["Sense traffic","Drink water","Sleep","Dance"], "c":"Sense traffic"},
+      //   // {"q":"AI chatbots answer:", "o":["Questions","Poems","Songs","Videos"], "c":"Questions"},
+      //   // {"q":"AI makes work:", "o":["Fast and easy","Slow and hard","Impossible","Expensive only"], "c":"Fast and easy"},
+      //   // {"q":"Farmers use AI to:", "o":["Know about crops","Play games","Build houses","Paint"], "c":"Know about crops"},
+      //   // {"q":"In the future, AI may also:", "o":["Create new jobs","Sleep","Swim","Shout"], "c":"Create new jobs"},
+      //   // {"q":"AI is a tool, so humans must:", "o":["Use it wisely","Break it","Sell it","Hide it"], "c":"Use it wisely"}
+      // ]},
     
     {"title": "Cloud Computing",
       "text": "Cloud Computing is a technology where we can store and use data and software on the internet instead of our computer’s hard disk. It is called “cloud” because we can access it from anywhere, just like seeing clouds in the sky. For example, when you save photos on Google Drive or watch movies on Netflix, you are using cloud computing.\nCloud computing saves space on our phones and computers. It also keeps data safe even if your device breaks. People can share documents easily using cloud apps like Google Docs. Big companies use cloud to keep their data and to run websites faster. The cloud can also give more storage and power when needed, which saves money.\nStudents use the cloud to do projects together, store notes, and submit homework online. Teachers use it to share study materials with students anytime. Apps like YouTube, Gmail, Facebook, and Instagram all run on cloud. Even banks use cloud to store customer details safely.\nIn the future, more people and companies will use the cloud because it is fast, cheap, and flexible. But it is important to protect cloud data from hackers. Learning about cloud computing is useful for students because it is part of almost every business today.",
