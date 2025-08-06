@@ -308,7 +308,6 @@
       correctWords: correct
     };
   }
-
  function submitToSheet() {
       const formBaseURL = "https://docs.google.com/forms/d/e/1FAIpQLSdrV_MCvdC0-v-EY9QLUAcUh15cAX-0Cbc8pbmyqEcSswuwFQ/formResponse"; // replace with your form's real POST URL
       const params = new URLSearchParams({
@@ -320,23 +319,22 @@
         "entry.1193619231": window.resultData.correctWords
       });
 
-
-    fetch(`${formBaseURL}?${params.toString()}`, {
-      method: "POST",
-      mode: "no-cors",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded"
-      }
-    })
-    .then(() => {
-      alert("✅ Submitted successfully!");
-      location.reload();
-    })
-    .catch((error) => {
-      alert("❌ Submission failed.");
-      console.error("Error:", error);
-    });
-  }
-</script>
+      fetch(`${formBaseURL}?${params.toString()}`, {
+        method: "POST",
+        mode: "no-cors",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        }
+      })
+      .then(() => {
+        alert("\u2705 ✅ Submitted successfully!");
+        location.reload();
+      })
+      .catch((error) => {
+        alert("\u274C ❌ Submission failed. ");
+        console.error("Error:", error);
+      });
+    }
+  </script>
 </body>
 </html>
