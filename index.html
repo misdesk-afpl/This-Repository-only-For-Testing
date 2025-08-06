@@ -227,7 +227,7 @@
   function updateTimerDisplay() {
     const minutes = Math.floor(timeLeft / 60);
     const seconds = timeLeft % 60;
-    document.getElementById("timer").innerText = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+    document.getElementById("timer").innerText = `${minutes}:${seconds.toString().padStart(1, '0')}`;
   }
 
   function startMainTimer() {
