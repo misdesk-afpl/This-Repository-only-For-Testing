@@ -282,7 +282,7 @@
     });
 
     const wpm = Math.round((typedWords.length / totalDuration) * 60);
-    const accuracy = originalWords.length > 0 ? Math.round((correct / originalWords.length) * 100) : 0;
+    const accuracy = typeWords.length > 0 ? Math.round((correct / typeWords.length) * 100) : 0;
 
     document.getElementById("typing-box").disabled = true;
     document.getElementById("test-area").style.display = "none";
