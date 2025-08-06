@@ -174,7 +174,7 @@
     "5G means the fifth generation of mobile networks. It is much faster than 4G. With 5G, we can download movies in seconds and enjoy video calls without breaks. 5G uses new technology and more towers to send data quickly.\n5G is not only for phones. Self-driving cars use 5G to talk to each other and avoid accidents. In hospitals, doctors can do surgeries from far away with robots using 5G. In smart cities, 5G helps control traffic and save energy.\n5G makes internet speed super fast and connects many devices at once. It helps students watch live classes without buffering. Factories use 5G to run smart machines. Gamers enjoy online games with no delay.\nIn the future, 5G will help in virtual reality, smart homes, and even flying taxis. Students who learn about 5G today can work in telecom, robotics, and smart city projects."
   ];
 
-  let totalDuration = 60;
+ let totalDuration = 60;
   let timeLeft = totalDuration;
   let activeTimer;
   let inactivityTimer;
@@ -207,6 +207,7 @@
     document.getElementById("loginPage").style.display = "none";
     document.getElementById("test-area").style.display = "block";
 
+    // ✅ Randomly select a different paragraph every time
     selectedText = paragraphs[Math.floor(Math.random() * paragraphs.length)];
     renderParagraph();
 
@@ -234,13 +235,12 @@
     if (timerRunning) return;
     timerRunning = true;
     activeTimer = setInterval(() => {
+      timeLeft--;
+      updateTimerDisplay();
       if (timeLeft <= 0) {
         clearInterval(activeTimer);
         finishTest();
-        return;
       }
-      timeLeft--;
-      updateTimerDisplay();
     }, 1000);
   }
 
@@ -282,7 +282,7 @@
     });
 
     const wpm = Math.round((typedWords.length / totalDuration) * 60);
-    const accuracy = totalWords > 0 ? Math.round((correctWords / totalWords) * 100) : 0;
+    const accuracy = originalWords.length > 0 ? Math.round((correct / originalWords.length) * 100) : 0;
 
     document.getElementById("typing-box").disabled = true;
     document.getElementById("test-area").style.display = "none";
@@ -308,33 +308,32 @@
       correctWords: correct
     };
   }
- function submitToSheet() {
-      const formBaseURL = "https://docs.google.com/forms/d/e/1FAIpQLSdrV_MCvdC0-v-EY9QLUAcUh15cAX-0Cbc8pbmyqEcSswuwFQ/formResponse"; // replace with your form's real POST URL
-      const params = new URLSearchParams({
-        "entry.1239245755": window.resultData.name,
-        "entry.1202560839": window.resultData.email,
-        "entry.1945685852": window.resultData.wpm,
-        "entry.710656876": window.resultData.accuracy,
-        "entry.1233596875": window.resultData.totalWords,
-        "entry.1193619231": window.resultData.correctWords
-      });
 
-      fetch(`${formBaseURL}?${params.toString()}`, {
-        method: "POST",
-        mode: "no-cors",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded"
-        }
-      })
-      .then(() => {
-        alert("\u2705 ✅ Submitted successfully!");
-        location.reload();
-      })
-      .catch((error) => {
-        alert("\u274C ❌ Submission failed. ");
-        console.error("Error:", error);
-      });
-    }
-  </script>
-</body>
-</html>
+  function submitToSheet() {
+    const formBaseURL = "https://docs.google.com/forms/d/e/1FAIpQLSdrV_MCvdC0-v-EY9QLUAcUh15cAX-0Cbc8pbmyqEcSswuwFQ/formResponse"; // replace with your form's real POST URL
+    const params = new URLSearchParams({
+      "entry.1239245755": window.resultData.name,
+      "entry.1202560839": window.resultData.email,
+      "entry.1945685852": window.resultData.wpm,
+      "entry.710656876": window.resultData.accuracy,
+      "entry.1233596875": window.resultData.totalWords,
+      "entry.1193619231": window.resultData.correctWords
+    });
+
+    fetch(`${formBaseURL}?${params.toString()}`, {
+      method: "POST",
+      mode: "no-cors",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      }
+    })
+    .then(() => {
+      alert("✅ Submitted successfully!");
+      location.reload();
+    })
+    .catch((error) => {
+      alert("❌ Submission failed.");
+      console.error("Error:", error);
+    });
+  }
+</script>
