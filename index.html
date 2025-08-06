@@ -104,6 +104,8 @@
       padding: 15px;
       border-radius: 8px;
       margin-bottom: 10px;
+      line-height: 1.6;
+      font-size: 16px;
     }
     #typing-box {
       width: 100%;
@@ -117,6 +119,15 @@
       text-align: right;
       font-weight: bold;
       margin-bottom: 10px;
+    }
+    .highlight {
+      background-color: yellow;
+    }
+    .correct {
+      color: green;
+    }
+    .incorrect {
+      color: red;
     }
   </style>
 </head>
@@ -133,7 +144,7 @@
   <div class="right">
     <h3>Login</h3>
     <input type="text" id="name" placeholder="Your Name" required />
-  <div class="error" id="nameError">Please enter a valid name.</div>
+    <div class="error" id="nameError">Please enter a valid name.</div>
     <input type="email" id="email" placeholder="Your Email" required />
     <div class="error" id="emailError">Please enter a valid email.</div>
     <button onclick="startTyping()">Submit</button>
@@ -243,7 +254,13 @@
     let html = "";
     for (let i = 0; i < selectedText.length; i++) {
       if (i < typedText.length) {
-        html += `<span style="color:#333">${selectedText[i]}</span>`;
+        const correctChar = selectedText[i];
+        const typedChar = typedText[i];
+        if (typedChar === correctChar) {
+          html += `<span class="correct">${correctChar}</span>`;
+        } else {
+          html += `<span class="incorrect">${correctChar}</span>`;
+        }
       } else if (i === typedText.length) {
         html += `<span class="highlight">${selectedText[i]}</span>`;
       } else {
