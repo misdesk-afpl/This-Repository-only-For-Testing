@@ -276,16 +276,19 @@ function finishTest() {
   const typedText = document.getElementById("typing-box").value.trim();
   const originalText = selectedText.trim();
 
-  let correctChars = 0;
-  const minLength = Math.min(typedText.length, originalText.length);
+  const typedWords = typedText.split(/\s+/).filter(w => w.length > 0);
+  const originalWords = originalText.split(/\s+/).filter(w => w.length > 0);
 
-  for (let i = 0; i < minLength; i++) {
-    if (typedText[i] === originalText[i]) correctChars++;
+  let correctWords = 0;
+  const wordCount = Math.min(typedWords.length, originalWords.length);
+
+  for (let i = 0; i < wordCount; i++) {
+    if (typedWords[i] === originalWords[i]) correctWords++;
   }
 
-  const totalTyped = typedText.length;
-  const accuracy = totalTyped > 0 ? Math.round((correctChars / totalTyped) * 100) : 0;
-  const totalWords = typedText.split(/\s+/).filter(w => w.length > 0).length;
+  const totalWords = typedWords.length;
+  const accuracy = totalWords > 0 ? Math.round((correctWords / totalWords) * 100) : 0;
+
   const timeTaken = totalDuration - timeLeft;
   const wpm = timeTaken > 0 ? Math.round((totalWords / timeTaken) * 60) : 0;
 
@@ -298,8 +301,8 @@ function finishTest() {
     <p><strong>Email:</strong> ${document.getElementById("email").value}</p>
     <p><strong>WPM:</strong> ${wpm}</p>
     <p><strong>Accuracy:</strong> ${accuracy}%</p>
-    <p><strong>Total Characters Typed:</strong> ${totalTyped}</p>
-    <p><strong>Correct Characters:</strong> ${correctChars}</p>
+    <p><strong>Total Words Typed:</strong> ${totalWords}</p>
+    <p><strong>Correct Words:</strong> ${correctWords}</p>
   `;
   document.getElementById("results").style.display = "block";
   document.getElementById("finalSubmitBtn").style.display = "block";
@@ -310,10 +313,9 @@ function finishTest() {
     wpm,
     accuracy,
     totalWords,
-    correctWords: correctChars
+    correctWords
   };
 }
-
   function submitToSheet() {
     const formBaseURL = "https://docs.google.com/forms/d/e/1FAIpQLSdrV_MCvdC0-v-EY9QLUAcUh15cAX-0Cbc8pbmyqEcSswuwFQ/formResponse"; // replace with your form's real POST URL
     const params = new URLSearchParams({
