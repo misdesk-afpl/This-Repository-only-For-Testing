@@ -271,42 +271,44 @@
   }
 
   function finishTest() {
-    pauseMainTimer();
-    const typedText = document.getElementById("typing-box").value.trim();
-    const originalWords = selectedText.split(/\s+/);
-    const typedWords = typedText.split(/\s+/);
+  clearInterval(activeTimer);
+  typingInput.disabled = true;
 
-    let correct = 0;
-    typedWords.forEach((word, i) => {
-      if (word === originalWords[i]) correct++;
-    });
+  const typedText = typingInput.value.trim();
+  const typedWords = typedText.split(/\s+/);
+  const originalWords = typingText.split(/\s+/);
 
-    const wpm = Math.round((typedWords.length / totalDuration) * 60);
-    const accuracy = typeWords.length > 0 ? Math.round((correct / typeWords.length) * 100) : 0;
+  let correct = 0;
+  for (let i = 0; i < typedWords.length; i++) {
+    if (typedWords[i] === originalWords[i]) correct++;
+  }
 
-    document.getElementById("typing-box").disabled = true;
-    document.getElementById("test-area").style.display = "none";
+  const totalTimeInSeconds = 60 - timeLeft;
+  const wpm = Math.round((typedWords.length / totalTimeInSeconds) * 60);
+  const accuracy = typedWords.length > 0 ? Math.round((correct / typedWords.length) * 100) : 0;
 
-    document.getElementById("results").innerHTML = `
-      <h3>Test Result</h3>
-      <p><strong>Name:</strong> ${document.getElementById("name").value}</p>
-      <p><strong>Email:</strong> ${document.getElementById("email").value}</p>
-      <p><strong>WPM:</strong> ${wpm}</p>
-      <p><strong>Accuracy:</strong> ${accuracy}%</p>
-      <p><strong>Total Words Typed:</strong> ${typedWords.length}</p>
-      <p><strong>Correct Words:</strong> ${correct}</p>
-    `;
-    document.getElementById("results").style.display = "block";
-    document.getElementById("finalSubmitBtn").style.display = "block";
+  resultSection.innerHTML = `
+    <h2>Test Result</h2>
+    <p><strong>Name:</strong> ${userName}</p>
+    <p><strong>Email:</strong> ${userEmail}</p>
+    <p><strong>WPM:</strong> ${wpm}</p>
+    <p><strong>Accuracy:</strong> ${accuracy}%</p>
+    <p><strong>Total Words Typed:</strong> ${typedWords.length}</p>
+    <p><strong>Correct Words:</strong> ${correct}</p>
+  `;
+  resultSection.classList.remove("hidden");
 
-    window.resultData = {
-      name: document.getElementById("name").value,
-      email: document.getElementById("email").value,
-      wpm,
-      accuracy,
-      totalWords: typedWords.length,
-      correctWords: correct
-    };
+  window.resultData = {
+    name: userName,
+    email: userEmail,
+    wpm: wpm,
+    accuracy: accuracy,
+    totalWords: typedWords.length,
+    correctWords: correct
+  };
+
+  submitToSheet();
+
   }
 
   function submitToSheet() {
