@@ -182,8 +182,8 @@
   let selectedText = "";
 
   function startTyping() {
-    const name = document.getElementById("name").value.trim();
-    const email = document.getElementById("email").value.trim();
+    userName = document.getElementById("name").value.trim();
+    userEmail = document.getElementById("email").value.trim();
     const nameRegex = /^[a-zA-Z ]+$/;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -270,23 +270,24 @@
     document.getElementById("paragraph").innerHTML = html;
   }
 
-  function finishTest() {
+function finishTest() {
   clearInterval(activeTimer);
-  typingInput.disabled = true;
+  document.getElementById("typing-box").disabled = true;
 
-  const typedText = typingInput.value.trim();
+  const typedText = document.getElementById("typing-box").value.trim();
   const typedWords = typedText.split(/\s+/);
-  const originalWords = typingText.split(/\s+/);
+  const originalWords = selectedText.split(/\s+/);
 
   let correct = 0;
   for (let i = 0; i < typedWords.length; i++) {
     if (typedWords[i] === originalWords[i]) correct++;
   }
 
-  const totalTimeInSeconds = 60 - timeLeft;
+  const totalTimeInSeconds = totalDuration - timeLeft;
   const wpm = Math.round((typedWords.length / totalTimeInSeconds) * 60);
   const accuracy = typedWords.length > 0 ? Math.round((correct / typedWords.length) * 100) : 0;
 
+  const resultSection = document.getElementById("result");
   resultSection.innerHTML = `
     <h2>Test Result</h2>
     <p><strong>Name:</strong> ${userName}</p>
@@ -297,7 +298,9 @@
     <p><strong>Correct Words:</strong> ${correct}</p>
   `;
   resultSection.classList.remove("hidden");
-
+resultSection.style.display = "block";
+document.getElementById("finalSubmitBtn").parentElement.style.display = "block";
+ 
   window.resultData = {
     name: userName,
     email: userEmail,
@@ -308,8 +311,7 @@
   };
 
   submitToSheet();
-
-  }
+}
 
   function submitToSheet() {
     const formBaseURL = "https://docs.google.com/forms/d/e/1FAIpQLSdrV_MCvdC0-v-EY9QLUAcUh15cAX-0Cbc8pbmyqEcSswuwFQ/formResponse"; // replace with your form's real POST URL
@@ -339,3 +341,5 @@
     });
   }
 </script>
+</body>
+</html>
