@@ -181,49 +181,51 @@
   let timerRunning = false;
   let selectedText = "";
 
-  function startTyping() {
-    const = document.getElementById("name").value.trim();
-    const = document.getElementById("email").value.trim();
-    const nameRegex = /^[a-zA-Z ]+$/;
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+ function startTyping() {
+  const name = document.getElementById("name").value.trim();
+  const email = document.getElementById("email").value.trim();
 
-    let valid = true;
-    if (!nameRegex.test(name)) {
-      document.getElementById("nameError").style.display = "block";
-      valid = false;
-    } else {
-      document.getElementById("nameError").style.display = "none";
-    }
+  const nameRegex = /^[a-zA-Z ]+$/;
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    if (!emailRegex.test(email)) {
-      document.getElementById("emailError").style.display = "block";
-      valid = false;
-    } else {
-      document.getElementById("emailError").style.display = "none";
-    }
+  let valid = true; // ✅ Important: this was missing!
 
-    if (!valid) return;
-
-    document.getElementById("loginPage").style.display = "none";
-    document.getElementById("test-area").style.display = "block";
-
-    // ✅ Randomly select a different paragraph every time
-    selectedText = paragraphs[Math.floor(Math.random() * paragraphs.length)];
-    renderParagraph();
-
-    const typingBox = document.getElementById("typing-box");
-    typingBox.disabled = false;
-    typingBox.focus();
-    timeLeft = totalDuration;
-    updateTimerDisplay();
-
-    typingBox.addEventListener("input", () => {
-      clearTimeout(inactivityTimer);
-      startMainTimer();
-      inactivityTimer = setTimeout(() => pauseMainTimer(), 1000);
-      renderParagraph();
-    });
+  if (!nameRegex.test(name)) {
+    document.getElementById("name-error").textContent = "Please enter a valid name.";
+    valid = false;
+  } else {
+    document.getElementById("name-error").textContent = "";
   }
+
+  if (!emailRegex.test(email)) {
+    document.getElementById("email-error").textContent = "Please enter a valid email.";
+    valid = false;
+  } else {
+    document.getElementById("email-error").textContent = "";
+  }
+
+  if (!valid) return; // ✅ This now works correctly
+
+  // Continue to typing test
+  document.getElementById("loginPage").style.display = "none";
+  document.getElementById("test-area").style.display = "block";
+
+  selectedText = paragraphs[Math.floor(Math.random() * paragraphs.length)];
+  renderParagraph();
+
+  const typingBox = document.getElementById("typing-box");
+  typingBox.disabled = false;
+  typingBox.focus();
+  timeLeft = totalDuration;
+  updateTimerDisplay();
+
+  typingBox.addEventListener("input", () => {
+    clearTimeout(inactivityTimer);
+    startMainTimer();
+    inactivityTimer = setTimeout(() => pauseMainTimer(), 1000);
+    renderParagraph();
+  });
+}
 
   function updateTimerDisplay() {
     const minutes = Math.floor(timeLeft / 60);
