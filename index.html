@@ -270,44 +270,49 @@
     document.getElementById("paragraph").innerHTML = html;
   }
 
-  function finishTest() {
-    pauseMainTimer();
-    const typedText = document.getElementById("typing-box").value.trim();
-    const originalWords = selectedText.split(/\s+/);
-    const typedWords = typedText.split(/\s+/);
+function finishTest() {
+  pauseMainTimer();
 
-    let correct = 0;
-    typedWords.forEach((word, i) => {
-      if (word === originalWords[i]) correct++;
-    });
+  const typedText = document.getElementById("typing-box").value.trim();
+  const originalText = selectedText.trim();
 
-    const wpm = Math.round((typedWords.length / totalDuration) * 60);
-    const accuracy = originalWords.length > 0 ? Math.round((correct / originalWords.length) * 100) : 0;
+  let correctChars = 0;
+  const minLength = Math.min(typedText.length, originalText.length);
 
-    document.getElementById("typing-box").disabled = true;
-    document.getElementById("test-area").style.display = "none";
-
-    document.getElementById("results").innerHTML = `
-      <h3>Test Result</h3>
-      <p><strong>Name:</strong> ${document.getElementById("name").value}</p>
-      <p><strong>Email:</strong> ${document.getElementById("email").value}</p>
-      <p><strong>WPM:</strong> ${wpm}</p>
-      <p><strong>Accuracy:</strong> ${accuracy}%</p>
-      <p><strong>Total Words Typed:</strong> ${typedWords.length}</p>
-      <p><strong>Correct Words:</strong> ${correct}</p>
-    `;
-    document.getElementById("results").style.display = "block";
-    document.getElementById("finalSubmitBtn").style.display = "block";
-
-    window.resultData = {
-      name: document.getElementById("name").value,
-      email: document.getElementById("email").value,
-      wpm,
-      accuracy,
-      totalWords: typedWords.length,
-      correctWords: correct
-    };
+  for (let i = 0; i < minLength; i++) {
+    if (typedText[i] === originalText[i]) correctChars++;
   }
+
+  const totalTyped = typedText.length;
+  const accuracy = totalTyped > 0 ? Math.round((correctChars / totalTyped) * 100) : 0;
+  const totalWords = typedText.split(/\s+/).filter(w => w.length > 0).length;
+  const timeTaken = totalDuration - timeLeft;
+  const wpm = timeTaken > 0 ? Math.round((totalWords / timeTaken) * 60) : 0;
+
+  document.getElementById("typing-box").disabled = true;
+  document.getElementById("test-area").style.display = "none";
+
+  document.getElementById("results").innerHTML = `
+    <h3>Test Result</h3>
+    <p><strong>Name:</strong> ${document.getElementById("name").value}</p>
+    <p><strong>Email:</strong> ${document.getElementById("email").value}</p>
+    <p><strong>WPM:</strong> ${wpm}</p>
+    <p><strong>Accuracy:</strong> ${accuracy}%</p>
+    <p><strong>Total Characters Typed:</strong> ${totalTyped}</p>
+    <p><strong>Correct Characters:</strong> ${correctChars}</p>
+  `;
+  document.getElementById("results").style.display = "block";
+  document.getElementById("finalSubmitBtn").style.display = "block";
+
+  window.resultData = {
+    name: document.getElementById("name").value,
+    email: document.getElementById("email").value,
+    wpm,
+    accuracy,
+    totalWords,
+    correctWords: correctChars
+  };
+}
 
   function submitToSheet() {
     const formBaseURL = "https://docs.google.com/forms/d/e/1FAIpQLSdrV_MCvdC0-v-EY9QLUAcUh15cAX-0Cbc8pbmyqEcSswuwFQ/formResponse"; // replace with your form's real POST URL
