@@ -52,13 +52,12 @@
       padding: 30px;
       min-height: 80vh;
     }
-    .left {
+       .left {
       flex: 0 0 40%;
-      background: url('https://static.vecteezy.com/system/resources/previews/001/883/463/original/young-man-using-desktop-computer-sitting-in-chair-with-desk-free-vector.jpg') center/cover no-repeat;
-      height: 400px;
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: auto;
     }
     .right {
       flex: 0 0 300px;
@@ -139,7 +138,12 @@
 
 <!-- Login Page -->
 <div class="login-container" id="loginPage">
-  <div class="left"></div>
+  <div class="left">
+    <img 
+      src="https://static.vecteezy.com/system/resources/previews/001/883/463/original/young-man-using-desktop-computer-sitting-in-chair-with-desk-free-vector.jpg" 
+      alt="Illustration"
+      style="width: 100%; height: auto; border-radius: 20px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
+  </div>
   <div class="right">
     <h3>👤Login</h3>
     <input type="text" id="name" placeholder="Your Name" required />
