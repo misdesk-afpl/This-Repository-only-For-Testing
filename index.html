@@ -890,21 +890,24 @@ function submitAnswers() {
   document.getElementById('userEmail').innerText = document.getElementById('email').value.trim();
   document.getElementById('userTopic').innerText = currentPassage.title;
   
-  const total = currentPassage.questions.length;
+    const total = currentPassage.questions.length;
   const correct = score;
   const wrong = total - correct;
 
-  const scoreText = `
-    Total Questions: ${total}<br>
-    Correct Answers: ${correct}<br>
-    Wrong Answers: ${wrong}
+  document.getElementById('finalPage').innerHTML = `
+    <h2>Your Result</h2>
+    <p><strong>Name:</strong> ${document.getElementById('name').value.trim()}</p>
+    <p><strong>Email:</strong> ${document.getElementById('email').value.trim()}</p>
+    <p><strong>Topic:</strong> ${currentPassage.title}</p>
+    <p><strong>Total Questions:</strong> ${total}</p>
+    <p><strong>Correct Answers:</strong> ${correct}</p>
+    <p><strong>Wrong Answers:</strong> ${wrong}</p>
+    <canvas id="resultChart"></canvas>
+    <div id="answersReview"></div>
+    <button onclick="showSuccess()" class="submit-btn">Final Submit</button>
   `;
-  const scoreElement = document.createElement("p");
-  scoreElement.innerHTML = `<strong>${scoreText}</strong>`;
-  scoreElement.style.textAlign = "center";
-  scoreElement.style.margin = "15px 0";
-  document.getElementById('finalPage').insertBefore(scoreElement, document.getElementById('resultChart'));
 
+  // Chart
   new Chart(document.getElementById('resultChart').getContext('2d'), {
     type: 'pie',
     data: {
@@ -917,7 +920,8 @@ function submitAnswers() {
     options: { responsive: true }
   });
 
-  let reviewHtml = "<h4>Review Your Answers:</h4>";
+  // Review section
+  let reviewHtml = "<h3>Review Your Answers:</h3>";
   currentPassage.questions.forEach((q, i) => {
     const isCorrect = userAnswers[i] === q.c;
     reviewHtml += `<p><strong>${i + 1}. ${q.q}</strong><br>`;
@@ -930,6 +934,7 @@ function submitAnswers() {
     reviewHtml += `</p>`;
   });
   document.getElementById('answersReview').innerHTML = reviewHtml;
+
 
   const readingTime = formatDuration(Math.round((readingEndTime - readingStartTime) / 1000));
   const testTime = formatDuration(Math.round((testEndTime - testStartTime) / 1000));
