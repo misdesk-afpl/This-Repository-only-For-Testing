@@ -768,75 +768,57 @@ const passages = [
   ];
 
 let currentPassage = null;
-let usedPassages = [];   // Already shown passages
-let passagePool = [...passages]; // Copy of passages for random shuffle
+let userAnswers = [];
+let readingStartTime, readingEndTime, testStartTime, testEndTime;
+let readingTimerInterval = null;
 
-// 🔹 Shuffle helper
-function shuffleArray(arr) {
-  for (let i = arr.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
-  }
+function formatDuration(seconds) {
+  const mins = Math.floor(seconds / 60);
+  const secs = seconds % 60;
+  return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
 }
-
-// 🔹 Get next passage (random, non-repeat until full cycle)
-function getNextPassage() {
-  if (passagePool.length === 0) {
-    // All passages used → reset and reshuffle
-    passagePool = [...passages];
-    shuffleArray(passagePool);
-    usedPassages = [];
-  }
-
-  currentPassage = passagePool.pop();
-  usedPassages.push(currentPassage);
-  return currentPassage;
-}
-
-// ----------------- MAIN FUNCTIONS -----------------
 
 function startTest() {
-  let name = document.getElementById("name").value.trim();
-  let email = document.getElementById("email").value.trim();
-  let nameError = document.getElementById("nameError");
-  let emailError = document.getElementById("emailError");
+    let name = document.getElementById("name").value.trim();
+    let email = document.getElementById("email").value.trim();
+    let nameError = document.getElementById("nameError");
+    let emailError = document.getElementById("emailError");
 
-  let nameRegex = /^[A-Za-z\s]+$/;
-  let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    let nameRegex = /^[A-Za-z\s]+$/;
+    let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  // Reset errors
-  nameError.style.display = "none";
-  emailError.style.display = "none";
+    // Reset errors
+    nameError.style.display = "none";
+    emailError.style.display = "none";
 
-  let valid = true;
+    let valid = true;
 
-  if (!nameRegex.test(name)) {
-    nameError.style.display = "inline";
-    valid = false;
-  } 
-  if (!emailRegex.test(email)) {
-    emailError.style.display = "inline";
-    valid = false;
-  }
+    if (!nameRegex.test(name)) {
+        nameError.style.display = "inline";
+        valid = false;
+    } 
+    if (!emailRegex.test(email)) {
+        emailError.style.display = "inline";
+        valid = false;
+    }
 
-  if (!valid) return;
+    if (!valid) return;
 
-  // ✅ Get random-but-non-repeat passage
-  currentPassage = getNextPassage();
-  document.getElementById("paragraph").innerText = currentPassage.text;
+    currentPassage = passages[Math.floor(Math.random() * passages.length)];
+    document.getElementById("paragraph").innerText = currentPassage.text;
 
-  document.getElementById("loginPage").style.display = "none";
-  document.getElementById("testPage").style.display = "block";
+    document.getElementById("loginPage").style.display = "none";
+    document.getElementById("testPage").style.display = "block";
 }
 
 function endTest() {
-  document.getElementById("testPage").style.display = "none";
-  document.getElementById("resultPage").style.display = "block";
+    document.getElementById("testPage").style.display = "none";
+    document.getElementById("resultPage").style.display = "block";
 }
 
 function restartTest() {
-  document.getElementById("resultPage").style.display = "none";
-  document.getElementById("loginPage").style.display = "block";
+    document.getElementById("resultPage").style.display = "none";
+    document.getElementById("loginPage").style.display = "block";
 }
 
 function startReading() {
