@@ -206,6 +206,7 @@
   <h3>Your Result</h3>
   <p><strong>Name:</strong> <span id="userName"></span></p>
   <p><strong>Email:</strong> <span id="userEmail"></span></p>
+  <p><strong>Topic:</strong> <span id="userTopic"></span></p>
   <canvas id="resultChart"></canvas>
   <div id="answersReview"></div>
   <button onclick="showSuccess()" style="margin-top: 20px;">Final Submit</button>
@@ -766,7 +767,6 @@ const passages = [
     }
   ];
 
-
 let currentPassage = null;
 let userAnswers = [];
 let readingStartTime, readingEndTime, testStartTime, testEndTime;
@@ -889,25 +889,23 @@ function submitAnswers() {
   document.getElementById('userName').innerText = document.getElementById('name').value.trim();
   document.getElementById('userEmail').innerText = document.getElementById('email').value.trim();
   document.getElementById('userTopic').innerText = currentPassage.title;
-  
-    const total = currentPassage.questions.length;
+
+
+  const total = currentPassage.questions.length;
   const correct = score;
   const wrong = total - correct;
 
-  document.getElementById('finalPage').innerHTML = `
-    <h2>Your Result</h2>
-    <p><strong>Name:</strong> ${document.getElementById('name').value.trim()}</p>
-    <p><strong>Email:</strong> ${document.getElementById('email').value.trim()}</p>
-    <p><strong>Topic:</strong> ${currentPassage.title}</p>
-    <p><strong>Total Questions:</strong> ${total}</p>
-    <p><strong>Correct Answers:</strong> ${correct}</p>
-    <p><strong>Wrong Answers:</strong> ${wrong}</p>
-    <canvas id="resultChart"></canvas>
-    <div id="answersReview"></div>
-    <button onclick="showSuccess()" class="submit-btn">Final Submit</button>
+  const scoreText = `
+    Total Questions: ${total}<br>
+    Correct Answers: ${correct}<br>
+    Wrong Answers: ${wrong}
   `;
+  const scoreElement = document.createElement("p");
+  scoreElement.innerHTML = `<strong>${scoreText}</strong>`;
+  scoreElement.style.textAlign = "center";
+  scoreElement.style.margin = "15px 0";
+  document.getElementById('finalPage').insertBefore(scoreElement, document.getElementById('resultChart'));
 
-  // Chart
   new Chart(document.getElementById('resultChart').getContext('2d'), {
     type: 'pie',
     data: {
@@ -920,8 +918,7 @@ function submitAnswers() {
     options: { responsive: true }
   });
 
-  // Review section
-  let reviewHtml = "<h3>Review Your Answers:</h3>";
+  let reviewHtml = "<h4>Review Your Answers:</h4>";
   currentPassage.questions.forEach((q, i) => {
     const isCorrect = userAnswers[i] === q.c;
     reviewHtml += `<p><strong>${i + 1}. ${q.q}</strong><br>`;
@@ -935,21 +932,18 @@ function submitAnswers() {
   });
   document.getElementById('answersReview').innerHTML = reviewHtml;
 
-
   const readingTime = formatDuration(Math.round((readingEndTime - readingStartTime) / 1000));
   const testTime = formatDuration(Math.round((testEndTime - testStartTime) / 1000));
 
   // Auto send to Google Sheet
   const formData = new FormData();
-  formData.append('entry.1640574701', document.getElementById('name').value.trim());   // Name
-  formData.append('entry.2044946124', document.getElementById('email').value.trim());  // Email
-  formData.append('entry.851841605', currentPassage.title);                            // Topic
-  formData.append('entry.2140657840', readingTime);                                    // Reading Time
-  formData.append('entry.1238249296', testTime);                                       // Test Time
-  formData.append('entry.645538404', total);                                           // Total Questions
-  formData.append('entry.895886336', correct);                                         // Correct Answers
-  formData.append('entry.115296724', wrong);                                           // Wrong Answers
-
+  formData.append('entry.1640574701', document.getElementById('name').value.trim());
+  formData.append('entry.2044946124', document.getElementById('email').value.trim());
+  formData.append('entry.645538404', total);
+  formData.append('entry.895886336', correct);
+  formData.append('entry.115296724', wrong);
+  formData.append('entry.2140657840', readingTime);
+  formData.append('entry.1238249296', testTime);
 
   fetch('https://docs.google.com/forms/d/e/1FAIpQLSfUJDDXqcvb_mz-ceL3yxA6kFF1ds4HEwDZzugyrO0tQVaBiA/formResponse', {
     method: 'POST',
