@@ -162,23 +162,55 @@
   <h2>Air Flow Pvt. Ltd. Comprehension Reading Test</h2>
 </div>
 
-<!-- Login Page -->
-<div class="login-container" id="loginPage">
-  <div class="left">
-    <img 
-      src="https://static.vecteezy.com/system/resources/previews/001/883/463/original/young-man-using-desktop-computer-sitting-in-chair-with-desk-free-vector.jpg" 
-      alt="Illustration"
-      style="width: 100%; height: auto; border-radius: 20px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
-  </div>
-  <div class="right">
-    <h3>👤Login</h3>
-    <input type="text" id="name" placeholder="Your Name" required />
-    <div class="error" id="nameError">Please enter a valid name.</div>
-    <input type="email" id="email" placeholder="Your Email" required />
-    <div class="error" id="emailError">Please enter a valid email.</div>
+  <!-- Login Page -->
+  <div id="loginPage">
+    <h2>Login</h2>
+    
+    <label>Name:</label>
+    <input type="text" id="name" placeholder="Enter your name">
+    <span id="nameError" style="color:red; display:none;">Invalid Name</span>
+    <br><br>
+
+    <label>Email:</label>
+    <input type="email" id="email" placeholder="Enter your email">
+    <span id="emailError" style="color:red; display:none;">Invalid Email</span>
+    <br><br>
+
+    <label>Captcha:</label>
+    <canvas id="captchaCanvas" width="150" height="50"></canvas>
+    <input type="text" id="captchaInput" placeholder="Enter captcha">
+    <span id="captchaError" style="color:red; display:none;">Captcha not matched</span>
+    <br><br>
+
     <button onclick="startTest()">Submit</button>
   </div>
-</div>
+
+  <!-- Test Page -->
+  <div id="testPage" style="display:none;">
+    <h3>Reading Passage</h3>
+    <p id="paragraph" class="blurred"></p>
+    <p>Time Left: <span id="time">05:00</span></p>
+    <button id="startReadBtn" onclick="startReading()">Start Reading</button>
+    <button id="proceedToQuestions" onclick="loadQuestions()" disabled>Proceed to Questions</button>
+  </div>
+
+  <!-- Question Page -->
+  <div id="questionPage" style="display:none;">
+    <h3>Answer the Questions</h3>
+    <div id="mcqs"></div>
+    <button onclick="submitAnswers()">Submit Answers</button>
+  </div>
+
+  <!-- Final Page -->
+  <div id="finalPage" style="display:none;">
+    <h3>Your Result</h3>
+    <p><strong>Name:</strong> <span id="userName"></span></p>
+    <p><strong>Email:</strong> <span id="userEmail"></span></p>
+    <p><strong>Topic:</strong> <span id="userTopic"></span></p>
+    <canvas id="resultChart"></canvas>
+    <div id="answersReview"></div>
+    <button onclick="showSuccess()">Finish</button>
+  </div
   
 <!-- Test Page -->
 <div id="testPage">
@@ -833,7 +865,19 @@ const passages = [
     ]
     }
    ];
-
+// ---------------- Captcha Code ----------------
+let captchaCode = "";
+function generateCaptcha() {
+  captchaCode = Math.random().toString(36).substring(2, 8);
+  const canvas = document.getElementById("captchaCanvas");
+  const ctx = canvas.getContext("2d");
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.font = "28px Poppins";
+  ctx.fillStyle = "#003366";
+  ctx.textBaseline = "middle";
+  ctx.fillText(captchaCode, 40, 25);
+}
+generateCaptcha();
   
 let currentPassage = null;
 let userAnswers = [];
@@ -849,8 +893,11 @@ function formatDuration(seconds) {
 function startTest() {
     let name = document.getElementById("name").value.trim();
     let email = document.getElementById("email").value.trim();
+    let captchaInput = document.getElementById("captchaInput").value.trim();
+
     let nameError = document.getElementById("nameError");
     let emailError = document.getElementById("emailError");
+    let captchaError = document.getElementById("captchaError");
 
     let nameRegex = /^[A-Za-z\s]+$/;
     let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -858,6 +905,7 @@ function startTest() {
     // Reset errors
     nameError.style.display = "none";
     emailError.style.display = "none";
+    captchaError.style.display = "none";
 
     let valid = true;
 
@@ -867,6 +915,11 @@ function startTest() {
     } 
     if (!emailRegex.test(email)) {
         emailError.style.display = "inline";
+        valid = false;
+    }
+    if (captchaInput !== captchaCode) {
+        captchaError.style.display = "inline";
+        generateCaptcha(); // Wrong hone par naya captcha
         valid = false;
     }
 
