@@ -184,7 +184,7 @@
 <div id="testPage">
   <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px; margin-bottom: 8px;">
   <div style="font-weight: bold;">
-    Reading time left: <span id="time">05:00</span>
+    Reading time left: <span id="time">10:00</span>
     <span style="color:red; font-weight:bold; white-space: nowrap;"> Please Read Carefully</span>
   </div>
   <button id="startReadBtn" onclick="startReading()" style="padding: 6px 14px; font-size: 13px; font-weight: bold; border: none; background: linear-gradient(to right, #36d1dc, #5b86e5); color: white; border-radius: 20px; cursor: pointer;">
@@ -810,17 +810,19 @@ function startReading() {
   readingStartTime = Date.now();
   document.getElementById('paragraph').classList.remove('blurred');
   document.getElementById('startReadBtn').style.display = 'none';
-
   const proceedBtn = document.getElementById('proceedToQuestions');
-  proceedBtn.disabled = false; // Allow user to proceed anytime
-
-  let secondsLeft = 300; // 5 minutes
+  proceedBtn.disabled = true; // Initially disabled
+  let secondsLeft = 600; // 10 minutes
   document.getElementById('time').innerText = formatDuration(secondsLeft);
-
+  const minReadingTime = 120; // 2 minutes in seconds
   readingTimerInterval = setInterval(() => {
     secondsLeft--;
     document.getElementById('time').innerText = formatDuration(secondsLeft);
-
+    // Enable button after 2 minutes
+    if (secondsLeft <= (600 - minReadingTime)) { // after 2 minutes passed
+      proceedBtn.disabled = false;
+    }
+    // Auto proceed after 10 minutes
     if (secondsLeft <= 0) {
       clearInterval(readingTimerInterval);
       readingEndTime = Date.now();
