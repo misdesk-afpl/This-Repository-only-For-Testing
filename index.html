@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head> 
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8"/>
+  <meta name="viewport"content="width=device-width, initial-scale=1.0"/>
   <title>Air Flow Pvt. Ltd. Comprehension Reading Test</title>
-  <link rel="icon" type="image/png" href="https://airflow.in/wp-content/uploads/2021/12/cropped-AIR-1.png" />
+  <link rel="icon"type="image/png"href="https://airflow.in/wp-content/uploads/2021/12/cropped-AIR-1.png"/>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"rel="stylesheet"/>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -159,24 +159,24 @@
 <body>
 
 <div class="header">
-  <img src="https://airflow.in/wp-content/uploads/2021/12/cropped-AIR-1.png" alt="Logo" />
+  <img src="https://airflow.in/wp-content/uploads/2021/12/cropped-AIR-1.png"alt="Logo"/>
   <h2>Air Flow Pvt. Ltd. Comprehension Reading Test</h2>
 </div>
 
 <!-- Login Page -->
-<div class="login-container" id="loginPage">
+<div class="login-container"id="loginPage">
   <div class="left">
     <img 
-      src="https://static.vecteezy.com/system/resources/previews/001/883/463/original/young-man-using-desktop-computer-sitting-in-chair-with-desk-free-vector.jpg" 
+      src="https://static.vecteezy.com/system/resources/previews/001/883/463/original/young-man-using-desktop-computer-sitting-in-chair-with-desk-free-vector.jpg"
       alt="Illustration"
       style="width: 100%; height: auto; border-radius: 20px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
   </div>
   <div class="right">
     <h3>👤Login</h3>
-    <input type="text" id="name" placeholder="Your Name" required />
-    <div class="error" id="nameError">Please enter a valid name.</div>
-    <input type="email" id="email" placeholder="Your Email" required />
-    <div class="error" id="emailError">Please enter a valid email.</div>
+    <input type="text"id="name"placeholder="Your Name"required />
+    <div class="error"id="nameError">Please enter a valid name.</div>
+    <input type="email"id="email"placeholder="Your Email"required />
+    <div class="error"id="emailError">Please enter a valid email.</div>
     <button onclick="startTest()">Submit</button>
   </div>
 </div>
@@ -187,14 +187,14 @@
   <div style="font-weight: bold;">
     Reading time left: <span id="time">10:00</span>
     <span style="color:red; font-weight:bold; white-space: nowrap;"> ---📚Please Read Carefully!!</span>
-    <span style="color:red; font-weight:bold; white-space: nowrap;"> [Note: The "I have read it" button will be enabled only after 2 minutes of reading time.]</span>
+    <span style="color:red; font-weight:bold; white-space: nowrap;"> [Note: The "I have read it"button will be enabled only after 2 minutes of reading time.]</span>
   </div>
-  <button id="startReadBtn" onclick="startReading()" style="padding: 6px 14px; font-size: 13px; font-weight: bold; border: none; background: linear-gradient(to right, #36d1dc, #5b86e5); color: white; border-radius: 20px; cursor: pointer;">
+  <button id="startReadBtn"onclick="startReading()"style="padding: 6px 14px; font-size: 13px; font-weight: bold; border: none; background: linear-gradient(to right, #36d1dc, #5b86e5); color: white; border-radius: 20px; cursor: pointer;">
     Start Read
   </button>
 </div>
-  <p id="paragraph" class="blurred"></p>
-  <button id="proceedToQuestions" onclick="loadQuestions()" disabled>I have read it. Now attempt the test</button>
+  <p id="paragraph"class="blurred"></p>
+  <button id="proceedToQuestions"onclick="loadQuestions()"disabled>I have read it. Now attempt the test</button>
 </div>
 
 <!-- Question Page -->
@@ -211,11 +211,11 @@
   <p><strong>Topic:</strong> <span id="userTopic"></span></p>
   <canvas id="resultChart"></canvas>
   <div id="answersReview"></div>
-  <button onclick="showSuccess()" style="margin-top: 20px;">Final Submit</button>
+  <button onclick="showSuccess()"style="margin-top: 20px;">Final Submit</button>
 </div>
 
 <!-- Success Page -->
-<div id="successPage" style="display: none; justify-content: center; align-items: center; min-height: 60vh; text-align: center; padding: 30px;">
+<div id="successPage"style="display: none; justify-content: center; align-items: center; min-height: 60vh; text-align: center; padding: 30px;">
   <h2>Thank you! Your result has been successfully submitted. <span class="emoji">😊</span></h2>
 </div>
 
@@ -667,7 +667,7 @@ const passages = [
      "questions": [
   {
     "q": "How does the integration of machine learning and sensor technology empower robots to navigate complex and dynamic environments?",
-    "o": ["By limiting robots to static environments", "By enabling real-time data processing and adaptive decision-making based on environmental feedback" , "By pre-programming fixed routes only", "By removing the need for sensors altogether"],
+    "o": ["By limiting robots to static environments", "By enabling real-time data processing and adaptive decision-making based on environmental feedback", "By pre-programming fixed routes only", "By removing the need for sensors altogether"],
     "c": "By enabling real-time data processing and adaptive decision-making based on environmental feedback"
   },
   {
@@ -832,53 +832,53 @@ const passages = [
     "questions":[
   {
     "q": "What fundamental structure does blockchain use to store data securely?",
-    "o": "a) Flat files on a single server, b) Small blocks linked like a chain, c) Centralized databases, d) Encrypted emails",
-    "c": "b) Small blocks linked like a chain"
+    "o": ["Flat files on a single server", "Small blocks linked like a chain", "Centralized databases", "Encrypted emails"],
+    "c": "Small blocks linked like a chain"
   },
   {
     "q": "Why is blockchain considered decentralized?",
-    "o": "a) Because data is stored on one central computer, b) Because many computers keep copies of the data instead of a single central place, c) Because it uses cloud storage only, d) Because it relies on a single authority",
-    "c": "b) Because many computers keep copies of the data instead of a single central place"
+    "o": ["Because data is stored on one central computer", "Because many computers keep copies of the data instead of a single central place", "Because it uses cloud storage only", "Because it relies on a single authority"],
+    "c": "Because many computers keep copies of the data instead of a single central place"
   },
   {
     "q": "Besides cryptocurrencies, name three sectors where blockchain is applied according to the paragraph.",
-    "o": "a) None of the above, b) Social media, gaming, and advertising, c) Banks, hospitals, and supply chains, d) Education, tourism, and fashion",
-    "c": "c) Banks, hospitals, and supply chains"
+    "o": ["None of the above", "Social media, gaming, and advertising", "Banks, hospitals, and supply chains", "Education, tourism, and fashion"],
+    "c": "Banks, hospitals, and supply chains"
   },
   {
     "q": "How do smart contracts improve business processes?",
-    "o": "a) By requiring manual approval for every transaction, b) By automatically executing coded agreements once conditions are met, saving time and avoiding disputes, c) By slowing down payments, d) By increasing paperwork",
-    "c": "b) By automatically executing coded agreements once conditions are met, saving time and avoiding disputes"
+    "o": ["By requiring manual approval for every transaction", "By automatically executing coded agreements once conditions are met, saving time and avoiding disputes", "By slowing down payments", "By increasing paperwork"],
+    "c": "By automatically executing coded agreements once conditions are met, saving time and avoiding disputes"
   },
   {
     "q": "What environmental concern is associated with blockchain mining, and how is the industry addressing it?",
-    "o": "a) High water usage; switching to solar power, b) High electricity consumption; developing newer, more sustainable technologies, c) Noise pollution; using quieter machines, d) Air pollution; planting trees",
-    "c": "b) High electricity consumption; developing newer, more sustainable technologies"
+    "o": ["High water usage; switching to solar power", "High electricity consumption; developing newer", "more sustainable technologies", "Noise pollution; using quieter machines", "Air pollution; planting trees"],
+    "c": "High electricity consumption; developing newer, more sustainable technologies"
   },
   {
     "q": "How does blockchain enhance transparency and trust in transactions?",
-    "o": "a) By encrypting data so no one can see it, b) By allowing everyone to see transaction history, reducing corruption and building trust, c) By hiding transaction history, d) By centralizing control",
-    "c": "b) By allowing everyone to see transaction history, reducing corruption and building trust"
+    "o": ["By encrypting data so no one can see it", "By allowing everyone to see transaction history, reducing corruption and building trust", "By hiding transaction history", "By centralizing control"],
+    "c": "By allowing everyone to see transaction history, reducing corruption and building trust"
   },
   {
     "q": "What role does blockchain play in cross-border payments?",
-    "o": "a) It requires banks to approve every transfer, b) It enables faster, cheaper transactions without intermediaries, c) It only works within countries, d) It slows down transactions and increases fees",
-    "c": "b) It enables faster, cheaper transactions without intermediaries"
+    "o": ["It requires banks to approve every transfer", "It enables faster, cheaper transactions without intermediaries", "It only works within countries", "It slows down transactions and increases fees"],
+    "c": "It enables faster, cheaper transactions without intermediaries"
   },
   {
     "q": "Explain how decentralized finance (DeFi) platforms built on blockchain differ from traditional banking.",
-    "o": "a) They require banks to operate, b) They provide financial services like loans and trading without banks, increasing access to money management tools, c) They limit access to financial services, d) They only offer savings accounts",
-    "c": "b) They provide financial services like loans and trading without banks, increasing access to money management tools"
+    "o": ["They require banks to operate", "They provide financial services like loans and trading without banks, increasing access to money management tools", "They limit access to financial services", "They only offer savings accounts"],
+    "c": "They provide financial services like loans and trading without banks, increasing access to money management tools"
   },
   {
     "q": "In what way does blockchain improve healthcare data management?",
-    "o": "a) By limiting access to medical data, b) By securely storing and sharing medical records with patient consent, ensuring privacy and quick access for doctors, c) By making records public without consent, d) By storing data only on paper",
-    "c": "b) By securely storing and sharing medical records with patient consent, ensuring privacy and quick access for doctors"
+    "o": ["By limiting access to medical data", "By securely storing and sharing medical records with patient consent, ensuring privacy and quick access for doctors", "By making records public without consent", "By storing data only on paper"],
+    "c": "By securely storing and sharing medical records with patient consent, ensuring privacy and quick access for doctors"
   },
   {
     "q": "How does blockchain contribute to food safety and traceability in agriculture?",
-    "o": "a) By limiting farmer access to data, b) By recording the journey of crops and livestock, helping identify and remove contaminated products quickly, c) By ignoring supply chain data, d) By only tracking prices",
-    "c": "b) By recording the journey of crops and livestock, helping identify and remove contaminated products quickly"
+    "o": ["By limiting farmer access to data", "By recording the journey of crops and livestock, helping identify and remove contaminated products quickly", "By ignoring supply chain data", "By only tracking prices"],
+    "c": "By recording the journey of crops and livestock, helping identify and remove contaminated products quickly"
   }
   ]},
 
@@ -887,53 +887,53 @@ const passages = [
     "questions": [
   {
     "q": "What is a popular example of AR technology used in gaming?",
-    "o": "a) Candy Crush, b) Pokémon Go, c) Minecraft, d) Fortnite",
-    "c": "b) Pokémon Go"
+    "o": ["Candy Crush", "Pokémon Go", "Minecraft", "Fortnite"],
+    "c": "Pokémon Go"
   },
   {
     "q": "How is AR transforming architecture and building design?",
-    "o": "a) By only providing 2D images, b) By limiting design creativity, c) By replacing physical blueprints only, d) By visualizing building designs on-site, helping clients understand projects better and detect errors early",
-    "c": "d) By visualizing building designs on-site, helping clients understand projects better and detect errors early"
+    "o": ["By only providing 2D images", "By limiting design creativity", "By replacing physical blueprints only", "By visualizing building designs on-site, helping clients understand projects better and detect errors early"],
+    "c": "By visualizing building designs on-site, helping clients understand projects better and detect errors early"
   },
   {
     "q": "What future applications of AR are anticipated in everyday life?",
-    "o": "a) Only in gaming, b) Only in factories, c) No future applications mentioned, d) Use in glasses to show maps, messages, or health data, increasing navigation, communication, and entertainment",
-    "c": "d) Use in glasses to show maps, messages, or health data, increasing navigation, communication, and entertainment"
+    "o": ["Only in gaming", "Only in factories", "No future applications mentioned", "Use in glasses to show maps, messages, or health data, increasing navigation, communication, and entertainment"],
+    "c": "Use in glasses to show maps, messages, or health data, increasing navigation, communication, and entertainment"
   },
   {
     "q": "How is AR used in social media?",
-    "o": "a) Only for text messaging, b) By removing images, c) Through filters and effects that change user appearance or add virtual items to photos and videos, d) By limiting user interaction",
-    "c": "c) Through filters and effects that change user appearance or add virtual items to photos and videos"
+    "o": ["Only for text messaging", "By removing images", "Through filters and effects that change user appearance or add virtual items to photos and videos", "By limiting user interaction"],
+    "c": "Through filters and effects that change user appearance or add virtual items to photos and videos"
   },
   {
     "q": "How does AR assist doctors during patient treatment?",
-    "o": "a) By limiting patient interaction, b) By replacing doctors in surgeries, c) By only providing medical textbooks, d) By showing bones or organs on the body in real time",
-    "c": "d) By showing bones or organs on the body in real time"
+    "o": ["By limiting patient interaction", "By replacing doctors in surgeries", "By only providing medical textbooks", "By showing bones or organs on the body in real time"],
+    "c": "By showing bones or organs on the body in real time"
   },
   {
     "q": "What role does AR play in the automotive industry?",
-    "o": "a) Limiting vehicle speed, b) Providing heads-up displays on windshields that show navigation, speed, and hazards to improve safety and convenience, c) Replacing drivers entirely, d) Only used for entertainment inside cars",
-    "c": "b) Providing heads-up displays on windshields that show navigation, speed, and hazards to improve safety and convenience"
+    "o": ["Limiting vehicle speed", "Providing heads-up displays on windshields that show navigation, speed, and hazards to improve safety and convenience", "Replacing drivers entirely", "Only used for entertainment inside cars"],
+    "c": "Providing heads-up displays on windshields that show navigation, speed, and hazards to improve safety and convenience"
   },
   {
     "q": "In what way does AR enhance sports training?",
-    "o": "a) By limiting physical activity, b) Providing athletes with real-time feedback on performance to improve techniques and avoid injuries, c) Only by watching recorded videos, d) By replacing coaches entirely",
-    "c": "b) Providing athletes with real-time feedback on performance to improve techniques and avoid injuries"
+    "o": ["By limiting physical activity", "Providing athletes with real-time feedback on performance to improve techniques and avoid injuries", "Only by watching recorded videos", "By replacing coaches entirely"],
+    "c": "Providing athletes with real-time feedback on performance to improve techniques and avoid injuries"
   },
   {
     "q": "Describe how AR supports remote assistance in industrial or technical fields.",
-    "o": "a) By requiring experts to be physically present, b) By limiting communication to phone calls, c) By sending manuals only, d) Experts guide workers through complex tasks using live video and virtual annotations, reducing travel costs and downtime",
-    "c": "d) Experts guide workers through complex tasks using live video and virtual annotations, reducing travel costs and downtime"
+    "o": ["By requiring experts to be physically present", "By limiting communication to phone calls", "By sending manuals only", "Experts guide workers through complex tasks using live video and virtual annotations, reducing travel costs and downtime"],
+    "c": "Experts guide workers through complex tasks using live video and virtual annotations, reducing travel costs and downtime"
   },
   {
     "q": "In what ways is AR used in education according to the paragraph?",
-    "o": "a) Replacing teachers entirely, b) Limiting interaction to textbooks, c) Only by watching videos, d) Showing 3D models of science diagrams and historical places to make learning fun and easy",
-    "c": "d) Showing 3D models of science diagrams and historical places to make learning fun and easy"
+    "o": ["Replacing teachers entirely", "Limiting interaction to textbooks", "Only by watching videos", "Showing 3D models of science diagrams and historical places to make learning fun and easy"],
+    "c": "Showing 3D models of science diagrams and historical places to make learning fun and easy"
   },
   {
     "q": "How does AR differ fundamentally from Virtual Reality (VR)?",
-    "o": "a) AR uses only audio, while VR uses only visuals, b) AR adds computer images or data to the real world, while VR fully covers what we see with a virtual environment, c) AR fully replaces the real world with a virtual one, while VR adds digital elements to the real world, d) AR is only used in gaming, while VR is used in education",
-    "c": "b) AR adds computer images or data to the real world, while VR fully covers what we see with a virtual environment"
+    "o": ["AR uses only audio, while VR uses only visuals", "AR adds computer images or data to the real world, while VR fully covers what we see with a virtual environment", "AR fully replaces the real world with a virtual one, while VR adds digital elements to the real world", "AR is only used in gaming, while VR is used in education"],
+    "c": "AR adds computer images or data to the real world, while VR fully covers what we see with a virtual environment"
   }
   ]},
 
@@ -943,53 +943,53 @@ const passages = [
   "questions": [
   {
     "q": "What role does 5G play in the development of smart cities?",
-    "o": "a) Limits urban growth, b) Controls traffic lights, monitors energy usage, improves public safety, and supports connected infrastructure, c) Replaces city officials, d) Only provides Wi-Fi in parks",
-    "c": "b) Controls traffic lights, monitors energy usage, improves public safety, and supports connected infrastructure"
+    "o": ["Limits urban growth", "Controls traffic lights, monitors energy usage, improves public safety, and supports connected infrastructure", "Replaces city officials", "Only provides Wi-Fi in parks"],
+    "c": "Controls traffic lights, monitors energy usage, improves public safety, and supports connected infrastructure"
   },
   {
     "q": "How does 5G reduce latency and improve efficiency in data transmission?",
-    "o": "a) By reducing bandwidth, b) By limiting the number of users, c) By increasing the number of connected devices and optimizing network protocols, d) By using only wired connections",
-    "c": "c) By increasing the number of connected devices and optimizing network protocols"
+    "o": ["By reducing bandwidth", "By limiting the number of users", "By increasing the number of connected devices and optimizing network protocols", "By using only wired connections"],
+    "c": "By increasing the number of connected devices and optimizing network protocols"
   },
   {
     "q": "How does 5G support the Internet of Things (IoT)?",
-    "o": "a) By disconnecting devices, b) By only supporting smartphones, c) By connecting billions of devices, enabling smarter and more responsive environments, d) By limiting device connectivity",
-    "c": "c) By connecting billions of devices, enabling smarter and more responsive environments"
+    "o": ["By disconnecting devices", "By only supporting smartphones", "By connecting billions of devices, enabling smarter and more responsive environments", "By limiting device connectivity"],
+    "c": "By connecting billions of devices, enabling smarter and more responsive environments"
   },
   {
     "q": "What benefits does 5G bring to the entertainment industry?",
-    "o": "a) No impact on entertainment, b) High-quality live streaming, immersive experiences like 360-degree video and AR concerts, and enhanced sports broadcasting, c) Only recorded videos, d) Limited interactivity",
-    "c": "b) High-quality live streaming, immersive experiences like 360-degree video and AR concerts, and enhanced sports broadcasting"
+    "o": ["No impact on entertainment", "High-quality live streaming, immersive experiences like 360-degree video and AR concerts, and enhanced sports broadcasting", "Only recorded videos", "Limited interactivity"],
+    "c": "High-quality live streaming, immersive experiences like 360-degree video and AR concerts, and enhanced sports broadcasting"
   },
   {
     "q": "What challenges are associated with 5G deployment, and how are they addressed?",
-    "o": "a) Only technical issues without social impact, b) No challenges exist, c) Deployment is easy and cheap, d) Requires significant investment and cooperation among governments, companies, and communities for equitable access",
-    "c": "d) Requires significant investment and cooperation among governments, companies, and communities for equitable access"
+    "o": ["Only technical issues without social impact", "No challenges exist", "Deployment is easy and cheap", "Requires significant investment and cooperation among governments, companies, and communities for equitable access"],
+    "c": "Requires significant investment and cooperation among governments, companies, and communities for equitable access"
   },
   {
     "q": "In what way does 5G impact transportation, specifically self-driving cars?",
-    "o": "a) Replaces drivers with robots, b) Only used for entertainment in cars, c) Limits vehicle speed, d) Enables real-time communication between vehicles to synchronize movements and reduce accidents",
-    "c": "d) Enables real-time communication between vehicles to synchronize movements and reduce accidents"
+    "o": ["Replaces drivers with robots", "Only used for entertainment in cars", "Limits vehicle speed", "Enables real-time communication between vehicles to synchronize movements and reduce accidents"],
+    "c": "Enables real-time communication between vehicles to synchronize movements and reduce accidents"
   },
   {
     "q": "Explain how 5G improves agricultural practices.",
-    "o": "a) By replacing farmers, b) By limiting crop monitoring, c) Through drones and sensors that monitor crops and soil health in real time for precise farming, d) By ignoring environmental data",
-    "c": "c) Through drones and sensors that monitor crops and soil health in real time for precise farming"
+    "o": ["By replacing farmers", "By limiting crop monitoring", "Through drones and sensors that monitor crops and soil health in real time for precise farming", "By ignoring environmental data"],
+    "c": "Through drones and sensors that monitor crops and soil health in real time for precise farming"
   },
   {
     "q": "How does 5G improve environmental monitoring?",
-    "o": "a) By ignoring environmental data, b) Using connected sensors to track air and water quality, enabling faster government response to pollution, c) By limiting sensor use, d) By only monitoring weather",
-    "c": "b) Using connected sensors to track air and water quality, enabling faster government response to pollution"
+    "o": ["By ignoring environmental data", "Using connected sensors to track air and water quality, enabling faster government response to pollution", "By limiting sensor use", "By only monitoring weather"],
+    "c": "Using connected sensors to track air and water quality, enabling faster government response to pollution"
   },
   {
     "q": "How does 5G contribute to public safety and emergency response?",
-    "o": "a) Limits emergency communication, b) Reduces response speed, c) Only used for traffic updates, d) Enables faster communication for responders and supports smart surveillance systems to detect unusual activities",
-    "c": "d) Enables faster communication for responders and supports smart surveillance systems to detect unusual activities"
+    "o": ["Limits emergency communication", "Reduces response speed", "Only used for traffic updates", "Enables faster communication for responders and supports smart surveillance systems to detect unusual activities"],
+    "c": "Enables faster communication for responders and supports smart surveillance systems to detect unusual activities"
   },
   {
     "q": "What key technological advancements enable 5G to be faster and more reliable than 4G?",
-    "o": "a) Fewer transmission towers, b) Slower data compression, c) Larger smartphones, d) Use of new spectrum bands, advanced antennas, and more transmission towers",
-    "c": "d) Use of new spectrum bands, advanced antennas, and more transmission towers"
+    "o": ["Fewer transmission towers", "Slower data compression", "Larger smartphones", "Use of new spectrum bands, advanced antennas, and more transmission towers"],
+    "c": "Use of new spectrum bands, advanced antennas, and more transmission towers"
   }
   ]}
 ];
@@ -1085,7 +1085,7 @@ function loadQuestions() {
   currentPassage.questions.forEach((q, i) => {
     mcqsHtml += `<p><strong>${i + 1}. ${q.q} <span style="color:red">*</span></strong><br>`;
     q.o.forEach(opt => {
-      mcqsHtml += `<label><input type="radio" name="q${i}" value="${opt}"> ${opt}</label><br>`;
+      mcqsHtml += `<label><input type="radio"name="q${i}"value="${opt}"> ${opt}</label><br>`;
     });
     mcqsHtml += `</p>`;
   });
