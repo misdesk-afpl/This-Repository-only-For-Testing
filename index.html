@@ -852,7 +852,7 @@ const passages = [
   },
   {
     "q": "What environmental concern is associated with blockchain mining, and how is the industry addressing it?",
-    "o": ["High water usage; switching to solar power", "High electricity consumption; developing newer", "more sustainable technologies", "Noise pollution; using quieter machines", "Air pollution; planting trees"],
+    "o": ["High water usage; switching to solar power", "High electricity consumption; developing newer, more sustainable technologies", "Noise pollution; using quieter machines", "Air pollution; planting trees"],
     "c": "High electricity consumption; developing newer, more sustainable technologies"
   },
   {
@@ -1052,19 +1052,20 @@ function startReading() {
   readingStartTime = Date.now();
   document.getElementById('paragraph').classList.remove('blurred');
   document.getElementById('startReadBtn').style.display = 'none';
+
+  // ✅ Enable "Proceed to Questions" immediately
   const proceedBtn = document.getElementById('proceedToQuestions');
-  proceedBtn.disabled = true; // Initially disabled
+  proceedBtn.disabled = false;
+
+  // Optional: You can still show countdown if needed
   let secondsLeft = 600; // 10 minutes
   document.getElementById('time').innerText = formatDuration(secondsLeft);
-  const minReadingTime = 120; // 2 minutes in seconds
+
   readingTimerInterval = setInterval(() => {
     secondsLeft--;
     document.getElementById('time').innerText = formatDuration(secondsLeft);
-    // Enable button after 2 minutes
-    if (secondsLeft <= (600 - minReadingTime)) { // after 2 minutes passed
-      proceedBtn.disabled = false;
-    }
-    // Auto proceed after 10 minutes
+
+    // ✅ Auto proceed after 10 minutes
     if (secondsLeft <= 0) {
       clearInterval(readingTimerInterval);
       readingEndTime = Date.now();
