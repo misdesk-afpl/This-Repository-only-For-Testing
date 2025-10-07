@@ -187,7 +187,7 @@
   <div style="font-weight: bold;">
     Reading time left: <span id="time">10:00</span>
     <span style="color:red; font-weight:bold; white-space: nowrap;"> ---📚Please Read Carefully!!</span>
-    <span style="color:red; font-weight:bold; white-space: nowrap;"> [Note: The "I have read it"button will be enabled only after 2 minutes of reading time.]</span>
+    <!-- <span style="color:red; font-weight:bold; white-space: nowrap;"> [Note: The "I have read it"button will be enabled only after 2 minutes of reading time.]</span> -->
   </div>
   <button id="startReadBtn"onclick="startReading()"style="padding: 6px 14px; font-size: 13px; font-weight: bold; border: none; background: linear-gradient(to right, #36d1dc, #5b86e5); color: white; border-radius: 20px; cursor: pointer;">
     Start Read
@@ -226,52 +226,52 @@ const passages = [
   "questions":[
   {
     "q": "Which characteristic primarily distinguishes AI systems from traditional rule-based programs?",
-    "o": ["AI systems operate strictly based on hard-coded logic", "AI systems adapt through learning and evolve over time", "AI systems struggle with processing extensive data", "AI systems need a set of exact steps for every operation"],
+    "o": ["AI systems operate strictly based on hard-coded logic", "AI systems adapt through learning and evolve over time", "AI systems struggle with processing extensive data", "AI systems need a set of exact steps for every operation", "Don't Know"],
     "c": "AI systems adapt through learning and evolve over time"
   },
   {
     "q": "What is a key function of recommendation systems powered by AI in platforms like Netflix and Amazon?",
-    "o": ["To offer suggestions at random", "To interpret user habits and forecast interests", "To speed up how fast videos play", "To cut down on how much data is used"],
+    "o": ["To offer suggestions at random", "To interpret user habits and forecast interests", "To speed up how fast videos play", "To cut down on how much data is used", "Don't Know"],
     "c": "To interpret user habits and forecast interests"
   },
   {
     "q": "In healthcare, how does AI improve the diagnosis of diseases such as cancer?",
-    "o": ["By completely replacing medical professionals", "By scanning and analyzing images faster and more precisely than people", "By having doctors review records manually", "By increasing the frequency of imaging procedures"],
+    "o": ["By completely replacing medical professionals", "By scanning and analyzing images faster and more precisely than people", "By having doctors review records manually", "By increasing the frequency of imaging procedures", "Don't Know"],
     "c": "By scanning and analyzing images faster and more precisely than people"
   },
   {
     "q": "Which of the following best describes 'narrow AI'?",
-    "o": ["AI capable of multitasking across broad domains", "AI with human-like consciousness and emotions", "AI built to efficiently perform specific functions", "AI that only exists in theory, not practice"],
+    "o": ["AI capable of multitasking across broad domains", "AI with human-like consciousness and emotions", "AI built to efficiently perform specific functions", "AI that only exists in theory, not practice", "Don't Know"],
     "c": "AI built to efficiently perform specific functions"
   },
   {
     "q": "Why is AI considered potentially more accessible and affordable in healthcare?",
-    "o": ["Because it removes the need for doctors", "Because it automates processes and helps find new treatments", "Because it leads to higher costs for facilities", "Because it does away with traditional healthcare methods"],
+    "o": ["Because it removes the need for doctors", "Because it automates processes and helps find new treatments", "Because it leads to higher costs for facilities", "Because it does away with traditional healthcare methods", "Don't Know"],
     "c": "Because it automates processes and helps find new treatments"
   },
   {
     "q": "What role do virtual assistants and chatbots play in AI applications?",
-    "o": ["They make customer service less efficient", "They instantly respond to frequent queries and boost user experience", "They fully replace all human interaction", "They are limited to working only during office times"],
+    "o": ["They make customer service less efficient", "They instantly respond to frequent queries and boost user experience", "They fully replace all human interaction", "They are limited to working only during office times", "Don't Know"],
     "c": "They instantly respond to frequent queries and boost user experience"
   },
   {
     "q": "Which of the following is NOT an example of narrow AI mentioned in the paragraph?",
-    "o": ["Face detection systems", "Apps that translate languages", "Speech recognition utilities", "Broad AI with reasoning like a human brain"],
+    "o": ["Face detection systems", "Apps that translate languages", "Speech recognition utilities", "Broad AI with reasoning like a human brain", "Don't Know"],
     "c": "Broad AI with reasoning like a human brain"
   },
   {
     "q": "How does AI contribute to personalized treatment in healthcare?",
-    "o": ["By assigning medications randomly", "By studying patient backgrounds and symptoms to recommend care", "By disregarding individual data", "By giving every patient the same treatment plan"],
+    "o": ["By assigning medications randomly", "By studying patient backgrounds and symptoms to recommend care", "By disregarding individual data", "By giving every patient the same treatment plan", "Don't Know"],
     "c": "By studying patient backgrounds and symptoms to recommend care"
   },
   {
     "q": "What is the significance of AI systems adapting as they process more data?",
-    "o": ["It gradually slows down the system", "It improves accuracy without needing manual updates", "It leads to loss of previously learned information", "It prevents the AI from handling varied tasks"],
+    "o": ["It gradually slows down the system", "It improves accuracy without needing manual updates", "It leads to loss of previously learned information", "It prevents the AI from handling varied tasks", "Don't Know"],
     "c": "It improves accuracy without needing manual updates"
   },
   {
     "q": "Which statement best reflects the current state of general AI according to the paragraph?",
-    "o": ["General AI is common in daily tech use", "General AI is mostly in experimental phases", "General AI is weaker than specific AI systems", "General AI performs limited roles only"],
+    "o": ["General AI is common in daily tech use", "General AI is mostly in experimental phases", "General AI is weaker than specific AI systems", "General AI performs limited roles only", "Don't Know"],
     "c": "General AI is mostly in experimental phases"
     }     
   ]},
